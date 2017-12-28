@@ -16,4 +16,5 @@
   <item name="nav_help" type="id"/>
   <item name="bottom_nav_phone" type="id"/>
   <item name="bottom_nav_recent" type="id"/>
+  <item name="phone_textview" type="id"/>
 </resources>

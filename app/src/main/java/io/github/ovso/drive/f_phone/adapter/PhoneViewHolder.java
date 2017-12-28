@@ -13,6 +13,7 @@ import io.github.ovso.drive.framework.adapter.BaseRecyclerAdapter;
 public class PhoneViewHolder extends BaseRecyclerAdapter.BaseViewHolder {
 
   @BindView(R.id.title_textview) TextView titleTextview;
+  @BindView(R.id.phone_textview) TextView phoneTextView;
 
   public PhoneViewHolder(View itemView) {
     super(itemView);

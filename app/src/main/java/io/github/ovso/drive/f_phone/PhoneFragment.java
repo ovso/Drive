@@ -3,16 +3,14 @@ package io.github.ovso.drive.f_phone;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 import butterknife.BindView;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
-import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.f_phone.model.Phone;
 import io.github.ovso.drive.framework.Constants;
-import io.github.ovso.drive.framework.SelectableItem;
+import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import javax.inject.Inject;
@@ -24,11 +22,10 @@ import lombok.Getter;
  */
 
 public class PhoneFragment extends BaseFragment
-    implements PhonePresenter.View, OnRecyclerItemClickListener<SelectableItem<Phone>> {
+    implements PhonePresenter.View, OnRecyclerItemClickListener<Phone> {
   @BindView(R.id.recyclerview) RecyclerView recyclerView;
-  @BindView(R.id.root_view) View rootView;
   @Inject @Getter PhoneAdapter adapter;
-  @Inject @Getter PhoneAdapterView adapterView;
+  @Inject @Getter BaseAdapterView adapterView;
   @Inject PhonePresenter presenter;
 
   @Override protected int getLayoutResID() {
@@ -50,7 +47,6 @@ public class PhoneFragment extends BaseFragment
 
   @Override public void setRecyclerView() {
     recyclerView.getItemAnimator().setChangeDuration(Constants.DURATION_RECYCLERVIEW_ANI);
-    recyclerView.getItemAnimator().setRemoveDuration(Constants.DURATION_RECYCLERVIEW_ANI);
     recyclerView.setItemAnimator(new SlideInDownAnimator());
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
@@ -79,7 +75,7 @@ public class PhoneFragment extends BaseFragment
     presenter.onDetach();
   }
 
-  @Override public void onItemClick(SelectableItem<Phone> item) {
+  @Override public void onItemClick(Phone item) {
     presenter.onItemClick(item);
   }
 }

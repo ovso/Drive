@@ -4,8 +4,8 @@ import android.view.View;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.model.Phone;
-import io.github.ovso.drive.framework.SelectableItem;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
+import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 import io.github.ovso.drive.framework.adapter.BaseRecyclerAdapter;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,11 +21,11 @@ import lombok.experimental.Accessors;
  */
 
 public class PhoneAdapter extends BaseRecyclerAdapter
-    implements PhoneAdapterView, BaseAdapterDataModel<SelectableItem<Phone>> {
+    implements BaseAdapterView, BaseAdapterDataModel<Phone> {
 
-  private List<SelectableItem<Phone>> selectableItems = new ArrayList<>();
+  private List<Phone> items = new ArrayList<>();
 
-  @Accessors(chain = true) @Setter private OnRecyclerItemClickListener<SelectableItem<Phone>>
+  @Accessors(chain = true) @Setter private OnRecyclerItemClickListener<Phone>
       onRecyclerItemClickListener;
 
   @Accessors(chain = true) private @Setter CompositeDisposable compositeDisposable;
@@ -40,17 +40,17 @@ public class PhoneAdapter extends BaseRecyclerAdapter
 
   @Override public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
     if (viewHolder instanceof PhoneViewHolder) {
-      SelectableItem<Phone> selectableItem = this.selectableItems.get(position);
-      Phone item = selectableItem.getItem();
+      Phone item = this.items.get(position);
       PhoneViewHolder holder = (PhoneViewHolder) viewHolder;
 
       //holder.setIsRecyclable(false);
 
       holder.titleTextview.setText(item.getTitle());
+      holder.phoneTextView.setText(item.getPhoneNumber());
       compositeDisposable.add(RxView.clicks(holder.itemView)
           .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(o -> onRecyclerItemClickListener.onItemClick(selectableItem)));
+          .subscribe(o -> onRecyclerItemClickListener.onItemClick(item)));
     }
   }
 
@@ -58,47 +58,35 @@ public class PhoneAdapter extends BaseRecyclerAdapter
     return getSize();
   }
 
-  @Override public void add(SelectableItem<Phone> changeItem) {
-    selectableItems.add(changeItem);
+  @Override public void add(Phone item) {
+    items.add(item);
   }
 
-  @Override public void addAll(List<SelectableItem<Phone>> items) {
-    this.selectableItems.addAll(items);
+  @Override public void addAll(List<Phone> items) {
+    this.items.addAll(items);
   }
 
-  @Override public SelectableItem<Phone> remove(int position) {
-    return this.selectableItems.remove(position);
+  @Override public Phone remove(int position) {
+    return this.items.remove(position);
   }
 
-  @Override public SelectableItem<Phone> getItem(int position) {
-    return null;
+  @Override public Phone getItem(int position) {
+    return items.get(position);
   }
 
-  @Override public void add(int index, SelectableItem<Phone> item) {
-    this.selectableItems.add(index, item);
+  @Override public void add(int index, Phone item) {
+    this.items.add(index, item);
   }
 
   @Override public int getSize() {
-    return selectableItems.size();
+    return items.size();
   }
 
   @Override public void clear() {
-    selectableItems.clear();
-  }
-
-  @Override public void refresh(int position) {
-    notifyItemChanged(position);
+    items.clear();
   }
 
   @Override public void refresh() {
     notifyDataSetChanged();
-  }
-
-  @Override public void refreshRemove() {
-    notifyItemRangeRemoved(0, getSize());
-  }
-
-  @Override public void refreshRemove(int position) {
-    notifyItemRemoved(position);
   }
 }
