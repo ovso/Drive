@@ -7,4 +7,9 @@
   <string name="action_settings">Settings</string>
   <string name="error_server">서버 문제가 발생했습니다. 잠시후 다시 시도해 주세요.</string>
   <string name="my_email">ovsoc@daum.net</string>
+  <string name="opensource_license">오픈소스 라이선스</string>
+  <string name="help">도움말</string>
+  <string name="drive_phone">대리운전 전화번호</string>
+  <string name="recent_phone">최근 연락처</string>
+
 </resources>

@@ -12,4 +12,8 @@
   <item name="drawer_layout" type="id"/>
   <item name="toolbar" type="id"/>
   <item name="ad_container" type="id"/>
+  <item name="nav_opensource" type="id"/>
+  <item name="nav_help" type="id"/>
+  <item name="bottom_nav_phone" type="id"/>
+  <item name="bottom_nav_recent" type="id"/>
 </resources>

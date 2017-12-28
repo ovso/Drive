@@ -1,18 +1,10 @@
 package io.github.ovso.drive.f_phone;
 
-import com.androidhuman.rxfirebase2.database.RxFirebaseDatabase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 import hugo.weaving.DebugLog;
-import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.model.Phone;
 import io.github.ovso.drive.framework.SelectableItem;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jaeho on 2017. 11. 27
@@ -20,7 +12,6 @@ import java.util.List;
 
 public class PhonePresenterImpl extends Exception implements PhonePresenter {
   private PhonePresenter.View view;
-  private DatabaseReference databaseReference;
   private CompositeDisposable compositeDisposable = new CompositeDisposable();
   private BaseAdapterDataModel<SelectableItem<Phone>> adapterDataModel;
 
@@ -32,6 +23,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   @Override public void onActivityCreate() {
     view.setRecyclerView();
     view.showLoading();
+    /*
     compositeDisposable.add(RxFirebaseDatabase.data(databaseReference)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -47,6 +39,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           view.showMessage(R.string.error_server);
           view.hideLoading();
         }));
+    */
   }
 
   @Override public void onDetach() {
