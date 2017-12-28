@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="recyclerview" type="id"/>
+  <item name="root_view" type="id"/>
+  <item name="cardview" type="id"/>
+  <item name="title_textview" type="id"/>
+  <item name="fragment_container" type="id"/>
+  <item name="bottom_navigation_view" type="id"/>
+  <item name="navigation_view" type="id"/>
+  <item name="version_textview" type="id"/>
+  <item name="textview" type="id"/>
+  <item name="drawer_layout" type="id"/>
+  <item name="toolbar" type="id"/>
+  <item name="ad_container" type="id"/>
+</resources>
