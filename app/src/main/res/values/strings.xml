@@ -11,5 +11,6 @@
   <string name="help">도움말</string>
   <string name="drive_phone">대리운전 전화번호</string>
   <string name="recent_phone">최근 연락처</string>
+  <string name="query">대리운전</string>
 
 </resources>

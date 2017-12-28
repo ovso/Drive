@@ -26,11 +26,11 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
     this.network = network;
     this.compositeDisposable = compositeDisposable;
   }
-
+  private int page = 2;
   @Override public void onActivityCreate() {
     view.setRecyclerView();
     view.showLoading();
-    compositeDisposable.add(network.getResult()
+    compositeDisposable.add(network.getResult(page)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Consumer<DResult>() {

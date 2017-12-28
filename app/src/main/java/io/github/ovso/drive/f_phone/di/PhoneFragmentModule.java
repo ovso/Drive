@@ -29,7 +29,7 @@ import io.reactivex.disposables.CompositeDisposable;
     return fragment.getAdapter();
   }
 
-  @Provides PhoneNetwork provideNetwork() {
+  @Provides PhoneNetwork provideNetwork(PhoneFragment fragment) {
     return new PhoneNetwork(NetworkApi.BASE_URL);
   }
 
