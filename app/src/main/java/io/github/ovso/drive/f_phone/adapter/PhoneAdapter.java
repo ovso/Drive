@@ -3,7 +3,7 @@ package io.github.ovso.drive.f_phone.adapter;
 import android.view.View;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.github.ovso.drive.R;
-import io.github.ovso.drive.f_phone.model.Phone;
+import io.github.ovso.drive.f_phone.model.Documents;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
 import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 import io.github.ovso.drive.framework.adapter.BaseRecyclerAdapter;
@@ -21,11 +21,11 @@ import lombok.experimental.Accessors;
  */
 
 public class PhoneAdapter extends BaseRecyclerAdapter
-    implements BaseAdapterView, BaseAdapterDataModel<Phone> {
+    implements BaseAdapterView, BaseAdapterDataModel<Documents> {
 
-  private List<Phone> items = new ArrayList<>();
+  private List<Documents> items = new ArrayList<>();
 
-  @Accessors(chain = true) @Setter private OnRecyclerItemClickListener<Phone>
+  @Accessors(chain = true) @Setter private OnRecyclerItemClickListener<Documents>
       onRecyclerItemClickListener;
 
   @Accessors(chain = true) private @Setter CompositeDisposable compositeDisposable;
@@ -40,13 +40,14 @@ public class PhoneAdapter extends BaseRecyclerAdapter
 
   @Override public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
     if (viewHolder instanceof PhoneViewHolder) {
-      Phone item = this.items.get(position);
+      Documents item = this.items.get(position);
       PhoneViewHolder holder = (PhoneViewHolder) viewHolder;
 
       //holder.setIsRecyclable(false);
 
-      holder.titleTextview.setText(item.getTitle());
-      holder.phoneTextView.setText(item.getPhoneNumber());
+      holder.titleTextview.setText(item.getPlace_name());
+      holder.phoneTextView.setText(item.getPhone());
+      holder.cateNameTextView.setText(item.getCategory_name());
       compositeDisposable.add(RxView.clicks(holder.itemView)
           .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
           .observeOn(AndroidSchedulers.mainThread())
@@ -58,23 +59,23 @@ public class PhoneAdapter extends BaseRecyclerAdapter
     return getSize();
   }
 
-  @Override public void add(Phone item) {
+  @Override public void add(Documents item) {
     items.add(item);
   }
 
-  @Override public void addAll(List<Phone> items) {
+  @Override public void addAll(List<Documents> items) {
     this.items.addAll(items);
   }
 
-  @Override public Phone remove(int position) {
+  @Override public Documents remove(int position) {
     return this.items.remove(position);
   }
 
-  @Override public Phone getItem(int position) {
+  @Override public Documents getItem(int position) {
     return items.get(position);
   }
 
-  @Override public void add(int index, Phone item) {
+  @Override public void add(int index, Documents item) {
     this.items.add(index, item);
   }
 

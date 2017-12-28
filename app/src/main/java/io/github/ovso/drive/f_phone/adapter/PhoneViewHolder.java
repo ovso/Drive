@@ -14,6 +14,7 @@ public class PhoneViewHolder extends BaseRecyclerAdapter.BaseViewHolder {
 
   @BindView(R.id.title_textview) TextView titleTextview;
   @BindView(R.id.phone_textview) TextView phoneTextView;
+  @BindView(R.id.category_name_textview) TextView cateNameTextView;
 
   public PhoneViewHolder(View itemView) {
     super(itemView);

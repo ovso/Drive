@@ -8,11 +8,12 @@ import butterknife.BindView;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
-import io.github.ovso.drive.f_phone.model.Phone;
+import io.github.ovso.drive.f_phone.model.Documents;
 import io.github.ovso.drive.framework.Constants;
 import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
+import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
 import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 import lombok.Getter;
@@ -22,8 +23,9 @@ import lombok.Getter;
  */
 
 public class PhoneFragment extends BaseFragment
-    implements PhonePresenter.View, OnRecyclerItemClickListener<Phone> {
+    implements PhonePresenter.View, OnRecyclerItemClickListener<Documents> {
   @BindView(R.id.recyclerview) RecyclerView recyclerView;
+  @Inject @Getter CompositeDisposable compositeDisposable;
   @Inject @Getter PhoneAdapter adapter;
   @Inject @Getter BaseAdapterView adapterView;
   @Inject PhonePresenter presenter;
@@ -75,7 +77,7 @@ public class PhoneFragment extends BaseFragment
     presenter.onDetach();
   }
 
-  @Override public void onItemClick(Phone item) {
+  @Override public void onItemClick(Documents item) {
     presenter.onItemClick(item);
   }
 }

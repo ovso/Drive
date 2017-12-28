@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="2.5dp"
     android:layout_marginLeft="2.5dp"
     android:layout_marginRight="2.5dp"
@@ -41,7 +41,17 @@
         android:gravity="left|center_vertical"
         android:lines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        tools:text="옥천"
+        tools:text="1588-1588"
+        />
+    <TextView
+        android:id="@id/category_name_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:lines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        tools:text="업종 > 서비스업 > 대리운전"
         />
   </LinearLayout>
 </android.support.v7.widget.CardView>
