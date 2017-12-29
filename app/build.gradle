@@ -127,4 +127,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
     implementation "com.github.markomilos:paginate:$paginate_version"
+
+    implementation "pl.charmas.android:android-reactive-location2:$reactive_location_version"
+    implementation "com.google.android.gms:play-services-location:$play_service_version"
+    implementation "com.google.android.gms:play-services-places:$play_service_version"
+    implementation "gun0912.ted:tedpermission-rx2:$tedpermission_rx2_version"
 }
