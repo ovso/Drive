@@ -5,12 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import butterknife.BindView;
+import com.paginate.Paginate;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
+import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.f_phone.model.Documents;
 import io.github.ovso.drive.framework.Constants;
-import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.reactivex.disposables.CompositeDisposable;
@@ -27,7 +28,7 @@ public class PhoneFragment extends BaseFragment
   @BindView(R.id.recyclerview) RecyclerView recyclerView;
   @Inject @Getter CompositeDisposable compositeDisposable;
   @Inject @Getter PhoneAdapter adapter;
-  @Inject @Getter BaseAdapterView adapterView;
+  @Inject @Getter PhoneAdapterView adapterView;
   @Inject PhonePresenter presenter;
 
   @Override protected int getLayoutResID() {
@@ -54,6 +55,41 @@ public class PhoneFragment extends BaseFragment
     recyclerView.setAdapter(adapter);
   }
 
+  @Override public void setPagination() {
+    /*
+    paginate = new PaginateBuilder().with(recyclerView).setOnLoadMoreListener(
+        () -> presenter.onLoadMore()).setLoadingTriggerThreshold(5).build();
+    */
+    Paginate.Callbacks callbacks = new Paginate.Callbacks() {
+      @Override
+      public void onLoadMore() {
+        // Load next page of data (e.g. network or database)
+        loadingInProgress = true;
+        hasLoadedAllItems = true;
+        presenter.onLoadMore();
+      }
+
+      @Override
+      public boolean isLoading() {
+        // Indicate whether new page loading is in progress or not
+        return loadingInProgress;
+      }
+
+      @Override
+      public boolean hasLoadedAllItems() {
+        // Indicate whether all data (pages) are loaded or not
+        return hasLoadedAllItems;
+      }
+    };
+    Paginate.with(recyclerView, callbacks)
+        .setLoadingTriggerThreshold(2)
+        .addLoadingListItem(true)
+        //.setLoadingListItemCreator(new CustomLoadingListItemCreator())
+        //.setLoadingListItemSpanSizeLookup(new CustomLoadingListItemSpanLookup())
+        .build();
+  }
+  private boolean loadingInProgress;
+  private boolean hasLoadedAllItems;
   @Override public void showMessage(int resId) {
     Toast.makeText(getContext(), resId, Toast.LENGTH_SHORT).show();
   }
@@ -70,6 +106,14 @@ public class PhoneFragment extends BaseFragment
 
   @Override public void refresh() {
     adapterView.refresh();
+    loadingInProgress = false;
+    hasLoadedAllItems = false;
+  }
+
+  @Override public void refreshToEnd(int position) {
+    adapterView.refreshToEnd(position);
+    loadingInProgress = false;
+    hasLoadedAllItems = false;
   }
 
   @DebugLog @Override public void onDetach() {

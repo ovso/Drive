@@ -15,6 +15,8 @@ public interface PhonePresenter {
 
   void onItemClick(Documents item);
 
+  void onLoadMore();
+
   interface View {
 
     void setRecyclerView();
@@ -28,5 +30,9 @@ public interface PhonePresenter {
     void showLoading();
 
     void hideLoading();
+
+    void setPagination();
+
+    void refreshToEnd(int position);
   }
 }

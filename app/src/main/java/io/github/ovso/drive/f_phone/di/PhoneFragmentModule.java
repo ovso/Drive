@@ -7,7 +7,7 @@ import io.github.ovso.drive.f_phone.PhoneNetwork;
 import io.github.ovso.drive.f_phone.PhonePresenter;
 import io.github.ovso.drive.f_phone.PhonePresenterImpl;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
-import io.github.ovso.drive.framework.adapter.BaseAdapterView;
+import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.framework.network.NetworkApi;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -25,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable;
     return new PhoneAdapter().setOnRecyclerItemClickListener(fragment).setCompositeDisposable(fragment.getCompositeDisposable());
   }
 
-  @Provides BaseAdapterView provideBaseAdapterView(PhoneFragment fragment) {
+  @Provides PhoneAdapterView provideBaseAdapterView(PhoneFragment fragment) {
     return fragment.getAdapter();
   }
 

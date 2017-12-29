@@ -5,7 +5,6 @@ import com.jakewharton.rxbinding2.view.RxView;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.model.Documents;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
-import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 import io.github.ovso.drive.framework.adapter.BaseRecyclerAdapter;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,7 +20,7 @@ import lombok.experimental.Accessors;
  */
 
 public class PhoneAdapter extends BaseRecyclerAdapter
-    implements BaseAdapterView, BaseAdapterDataModel<Documents> {
+    implements PhoneAdapterView, BaseAdapterDataModel<Documents> {
 
   private List<Documents> items = new ArrayList<>();
 
@@ -88,6 +87,10 @@ public class PhoneAdapter extends BaseRecyclerAdapter
   }
 
   @Override public void refresh() {
-    notifyDataSetChanged();
+    notifyItemRangeChanged(0, getSize() -1);
+  }
+
+  @Override public void refreshToEnd(int start) {
+    notifyItemRangeChanged(start, getSize() - 1);
   }
 }

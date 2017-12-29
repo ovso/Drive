@@ -37,6 +37,7 @@ buildscript {
         leakcanary_version = '1.5.4'
         retrofit_version = '2.3.0'
         okhttp3_version = '3.9.0'
+        paginate_version = '0.5.1'
 
     }
 
