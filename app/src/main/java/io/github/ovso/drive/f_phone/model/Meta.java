@@ -1,8 +1,13 @@
 package io.github.ovso.drive.f_phone.model;
 
+import lombok.Getter;
+
 /**
  * Created by jaeho on 2017. 12. 28..
  */
 
-public class Meta {
+@Getter public class Meta {
+  private int pageable_count;
+  private int total_count;
+  private boolean is_end;
 }

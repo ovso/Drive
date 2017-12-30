@@ -11,12 +11,10 @@ import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.f_phone.model.Documents;
-import io.github.ovso.drive.framework.Constants;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
-import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 import lombok.Getter;
 
 /**
@@ -49,8 +47,8 @@ public class PhoneFragment extends BaseFragment
   }
 
   @Override public void setRecyclerView() {
-    recyclerView.getItemAnimator().setChangeDuration(Constants.DURATION_RECYCLERVIEW_ANI);
-    recyclerView.setItemAnimator(new SlideInDownAnimator());
+    //recyclerView.getItemAnimator().setChangeDuration(Constants.DURATION_RECYCLERVIEW_ANI);
+    //recyclerView.setItemAnimator(new SlideInDownAnimator());
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
   }

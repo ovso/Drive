@@ -2,7 +2,6 @@ package io.github.ovso.drive.f_phone;
 
 import android.Manifest;
 import android.location.Address;
-import android.location.Location;
 import android.text.TextUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import hugo.weaving.DebugLog;
@@ -10,12 +9,9 @@ import io.github.ovso.drive.R;
 import io.github.ovso.drive.app.MyApplication;
 import io.github.ovso.drive.f_phone.model.Documents;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import java.util.List;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
 import timber.log.Timber;
 
@@ -72,7 +68,9 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         .subscribe(addresses -> {
           if (addresses.size() > 0) {
             Address address = addresses.get(0);
+            Timber.d("address = " + address);
             query = getQuery(address.getLocality(), address.getThoroughfare());
+            query = "옥천군 옥천읍 대리운전";
             req(query);
           } else {
             view.hideLoading();
@@ -80,11 +78,12 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         }, throwable -> view.hideLoading()));
   }
 
-  private void req(String query) {
+  @DebugLog private void req(String query) {
     compositeDisposable.add(network.getResult(query, page)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(dResult -> {
+          is_end = dResult.getMeta().is_end();
           adapterDataModel.addAll(dResult.getDocuments());
           view.refresh();
           view.hideLoading();
@@ -93,7 +92,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         }));
   }
 
-  private String getQuery(String locality, String thoroughfare) {
+  @DebugLog private String getQuery(String locality, String thoroughfare) {
     final String query = MyApplication.getInstance().getString(R.string.query);
     if (!TextUtils.isEmpty(locality) && !TextUtils.isEmpty(thoroughfare)) {
       return locality + " " + thoroughfare + " " + query;
@@ -111,10 +110,10 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
       double lat = location.getLatitude();
       double lng = location.getLongitude();
       Timber.d("lat = " + lat + ", lng = " + lng);
-
+      //
       double[][] loc = new double[5][2];
-      loc[0][0] = 36.3010314;   //옥천군 옥천읍
-      loc[0][1] = 127.5668133;
+      loc[0][0] = 36.3021057;   //옥천군 옥천읍
+      loc[0][1] = 127.5681262;
       loc[1][0] = 37.6841556;   //남양주시 화도읍
       loc[1][1] = 127.303926;
       loc[2][0] = 37.487338;    //명달로 26길 44
@@ -134,9 +133,9 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
 
   @DebugLog @Override public void onItemClick(Documents item) {
   }
-
-  @Override public void onLoadMore() {
-    if (adapterDataModel.getSize() < 1) {
+  private boolean is_end;
+  @DebugLog @Override public void onLoadMore() {
+    if (adapterDataModel.getSize() < 1 || is_end) {
       return;
     }
     page++;
@@ -144,6 +143,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(dResult -> {
+          is_end = dResult.getMeta().is_end();
           int oldLastPosition = adapterDataModel.getSize() - 1;
           adapterDataModel.addAll(dResult.getDocuments());
           view.refreshToEnd(oldLastPosition);
