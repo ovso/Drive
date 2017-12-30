@@ -132,4 +132,6 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$play_service_version"
     implementation "com.google.android.gms:play-services-places:$play_service_version"
     implementation "gun0912.ted:tedpermission-rx2:$tedpermission_rx2_version"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rxpermissions2_version"
+    implementation 'gun0912.ted:tedpermission:2.1.0'
 }
