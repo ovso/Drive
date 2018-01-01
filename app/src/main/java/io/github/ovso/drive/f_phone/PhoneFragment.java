@@ -5,9 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import butterknife.BindView;
-import com.paginate.Paginate;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
+import io.github.ovso.drive.f_phone.adapter.OnEndlessRecyclerScrollListener;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.f_phone.model.Documents;
@@ -22,9 +22,11 @@ import lombok.Getter;
  */
 
 public class PhoneFragment extends BaseFragment
-    implements PhonePresenter.View, OnRecyclerItemClickListener<Documents> {
-  @BindView(R.id.recyclerview) RecyclerView recyclerView;
+    implements PhonePresenter.View, OnRecyclerItemClickListener<Documents>,
+    OnEndlessRecyclerScrollListener.OnLoadMoreListener {
+  @Getter @BindView(R.id.recyclerview) RecyclerView recyclerView;
   @Inject @Getter CompositeDisposable compositeDisposable;
+  @Inject OnEndlessRecyclerScrollListener onEndlessRecyclerScrollListener;
   @Inject @Getter PhoneAdapter adapter;
   @Inject @Getter PhoneAdapterView adapterView;
   @Inject PhonePresenter presenter;
@@ -47,47 +49,13 @@ public class PhoneFragment extends BaseFragment
   }
 
   @Override public void setRecyclerView() {
-    //recyclerView.getItemAnimator().setChangeDuration(Constants.DURATION_RECYCLERVIEW_ANI);
-    //recyclerView.setItemAnimator(new SlideInDownAnimator());
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    onEndlessRecyclerScrollListener.setLayoutManager(recyclerView.getLayoutManager());
+    recyclerView.addOnScrollListener(onEndlessRecyclerScrollListener);
     recyclerView.setAdapter(adapter);
+
   }
 
-  @Override public void setPagination() {
-    /*
-    paginate = new PaginateBuilder().with(recyclerView).setOnLoadMoreListener(
-        () -> presenter.onLoadMore()).setLoadingTriggerThreshold(5).build();
-    */
-    Paginate.Callbacks callbacks = new Paginate.Callbacks() {
-      @Override
-      public void onLoadMore() {
-        // Load next page of data (e.g. network or database)
-        loadingInProgress = true;
-        hasLoadedAllItems = true;
-        presenter.onLoadMore();
-      }
-
-      @Override
-      public boolean isLoading() {
-        // Indicate whether new page loading is in progress or not
-        return loadingInProgress;
-      }
-
-      @Override
-      public boolean hasLoadedAllItems() {
-        // Indicate whether all data (pages) are loaded or not
-        return hasLoadedAllItems;
-      }
-    };
-    Paginate.with(recyclerView, callbacks)
-        .setLoadingTriggerThreshold(2)
-        .addLoadingListItem(true)
-        //.setLoadingListItemCreator(new CustomLoadingListItemCreator())
-        //.setLoadingListItemSpanSizeLookup(new CustomLoadingListItemSpanLookup())
-        .build();
-  }
-  private boolean loadingInProgress;
-  private boolean hasLoadedAllItems;
   @Override public void showMessage(int resId) {
     Toast.makeText(getContext(), resId, Toast.LENGTH_SHORT).show();
   }
@@ -104,14 +72,10 @@ public class PhoneFragment extends BaseFragment
 
   @Override public void refresh() {
     adapterView.refresh();
-    loadingInProgress = false;
-    hasLoadedAllItems = false;
   }
 
-  @Override public void refreshToEnd(int position) {
-    adapterView.refreshToEnd(position);
-    loadingInProgress = false;
-    hasLoadedAllItems = false;
+  @Override public void refreshStartToEnd(int startPosition) {
+    adapterView.refreshToEnd(startPosition);
   }
 
   @DebugLog @Override public void onDetach() {
@@ -121,5 +85,25 @@ public class PhoneFragment extends BaseFragment
 
   @Override public void onItemClick(Documents item) {
     presenter.onItemClick(item);
+  }
+
+  @Override public void onLoadMore() {
+    presenter.onLoadMore();
+  }
+
+  @Override public void setLoaded() {
+    onEndlessRecyclerScrollListener.setLoaded();
+  }
+
+  @Override public void notifyItemInserted(int position) {
+    adapterView.notifyItemInserted(position);
+  }
+
+  @Override public void notifyItemRemoved(int position) {
+    adapterView.notifyItemRemoved(position);
+  }
+
+  @Override public void notifyItemRangeInserted(int startPosition, int itemCount) {
+    adapterView.notifyItemRangeInserted(startPosition, itemCount);
   }
 }

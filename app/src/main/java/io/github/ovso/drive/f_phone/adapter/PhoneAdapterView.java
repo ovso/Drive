@@ -8,4 +8,7 @@ import io.github.ovso.drive.framework.adapter.BaseAdapterView;
 
 public interface PhoneAdapterView extends BaseAdapterView {
   void refreshToEnd(int start);
+  void notifyItemInserted(int position);
+  void notifyItemRemoved(int position);
+  void notifyItemRangeInserted(int startPosition, int itemCount);
 }

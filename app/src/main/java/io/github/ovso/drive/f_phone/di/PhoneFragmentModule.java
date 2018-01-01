@@ -7,6 +7,7 @@ import io.github.ovso.drive.f_phone.PhoneFragment;
 import io.github.ovso.drive.f_phone.PhoneNetwork;
 import io.github.ovso.drive.f_phone.PhonePresenter;
 import io.github.ovso.drive.f_phone.PhonePresenterImpl;
+import io.github.ovso.drive.f_phone.adapter.OnEndlessRecyclerScrollListener;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.framework.network.NetworkApi;
@@ -48,5 +49,12 @@ import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
 
   @Provides ReactiveLocationProvider provideReactiveLocationProvider(PhoneFragment fragment) {
     return new ReactiveLocationProvider(fragment.getContext());
+  }
+
+  @Provides OnEndlessRecyclerScrollListener provideEndlessRecyclerScrollListener(
+      PhoneFragment fragment) {
+    OnEndlessRecyclerScrollListener listener = new OnEndlessRecyclerScrollListener();
+    listener.setOnLoadMoreListener(fragment);
+    return listener;
   }
 }

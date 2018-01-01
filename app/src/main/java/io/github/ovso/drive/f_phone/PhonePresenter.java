@@ -31,8 +31,14 @@ public interface PhonePresenter {
 
     void hideLoading();
 
-    void setPagination();
+    void refreshStartToEnd(int position);
 
-    void refreshToEnd(int position);
+    void setLoaded();
+
+    void notifyItemInserted(int position);
+
+    void notifyItemRemoved(int position);
+
+    void notifyItemRangeInserted(int startPosition, int itemCount);
   }
 }

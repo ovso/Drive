@@ -43,7 +43,6 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   @DebugLog @Override public void onActivityCreate() {
     view.showLoading();
     view.setRecyclerView();
-    view.setPagination();
 
     permissions.request(Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -87,6 +86,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           adapterDataModel.addAll(dResult.getDocuments());
           view.refresh();
           view.hideLoading();
+          view.setLoaded();
         }, throwable -> {
           view.hideLoading();
         }));
@@ -135,19 +135,27 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   }
   private boolean is_end;
   @DebugLog @Override public void onLoadMore() {
-    if (adapterDataModel.getSize() < 1 || is_end) {
+
+    if(is_end) {
+      Timber.d("is_end = " + is_end);
       return;
     }
+
+    adapterDataModel.add(null);
+    final int lastPosition = adapterDataModel.getSize() - 1;
+    view.notifyItemInserted(lastPosition);
     page++;
     compositeDisposable.add(network.getResult(this.query, page)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(dResult -> {
+          adapterDataModel.remove(lastPosition);
+          view.notifyItemRemoved(lastPosition);
           is_end = dResult.getMeta().is_end();
-          int oldLastPosition = adapterDataModel.getSize() - 1;
+          int oldSize = adapterDataModel.getSize();
           adapterDataModel.addAll(dResult.getDocuments());
-          view.refreshToEnd(oldLastPosition);
-          //view.refresh();
+          view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize());
+          view.setLoaded();
         }, throwable -> {
 
         }));

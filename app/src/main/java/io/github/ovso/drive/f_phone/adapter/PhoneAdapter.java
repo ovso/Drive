@@ -21,7 +21,8 @@ import lombok.experimental.Accessors;
 
 public class PhoneAdapter extends BaseRecyclerAdapter
     implements PhoneAdapterView, BaseAdapterDataModel<Documents> {
-
+  private int VIEW_TYPE_DEFAULT = 0;
+  private int VIEW_TYPE_LOADING = 1;
   private List<Documents> items = new ArrayList<>();
 
   @Accessors(chain = true) @Setter private OnRecyclerItemClickListener<Documents>
@@ -34,7 +35,20 @@ public class PhoneAdapter extends BaseRecyclerAdapter
   }
 
   @Override public int getLayoutRes(int viewType) {
-    return R.layout.fragment_phone_item;
+    if(viewType == VIEW_TYPE_DEFAULT) {
+      return R.layout.fragment_phone_item;
+    } else {
+      return R.layout.loading_footer;
+    }
+
+  }
+
+  @Override public int getItemViewType(int position) {
+    if (getItem(position) != null) {
+      return VIEW_TYPE_DEFAULT;
+    } else {
+      return VIEW_TYPE_LOADING;
+    }
   }
 
   @Override public void onBindViewHolder(BaseViewHolder viewHolder, int position) {
@@ -87,10 +101,10 @@ public class PhoneAdapter extends BaseRecyclerAdapter
   }
 
   @Override public void refresh() {
-    notifyItemRangeChanged(0, getSize() -1);
+    notifyDataSetChanged();
   }
 
   @Override public void refreshToEnd(int start) {
-    notifyItemRangeChanged(start, getSize() - 1);
+    notifyItemRangeChanged(start, getSize());
   }
 }
