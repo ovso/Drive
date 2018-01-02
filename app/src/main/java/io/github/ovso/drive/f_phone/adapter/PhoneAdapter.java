@@ -31,16 +31,19 @@ public class PhoneAdapter extends BaseRecyclerAdapter
   @Accessors(chain = true) private @Setter CompositeDisposable compositeDisposable;
 
   @Override protected BaseViewHolder createViewHolder(View view, int viewType) {
-    return new PhoneViewHolder(view);
+    if (viewType == VIEW_TYPE_DEFAULT) {
+      return new PhoneViewHolder(view);
+    } else {
+      return new LoadingViewHolder(view);
+    }
   }
 
   @Override public int getLayoutRes(int viewType) {
-    if(viewType == VIEW_TYPE_DEFAULT) {
+    if (viewType == VIEW_TYPE_DEFAULT) {
       return R.layout.fragment_phone_item;
     } else {
       return R.layout.loading_footer;
     }
-
   }
 
   @Override public int getItemViewType(int position) {

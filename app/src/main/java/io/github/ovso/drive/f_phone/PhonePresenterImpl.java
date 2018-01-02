@@ -69,7 +69,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
             Address address = addresses.get(0);
             Timber.d("address = " + address);
             query = getQuery(address.getLocality(), address.getThoroughfare());
-            query = "옥천군 옥천읍 대리운전";
+            query = "서울 대리운전";
             req(query);
           } else {
             view.hideLoading();
@@ -154,7 +154,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           is_end = dResult.getMeta().is_end();
           int oldSize = adapterDataModel.getSize();
           adapterDataModel.addAll(dResult.getDocuments());
-          view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize());
+          view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize()-1);
           view.setLoaded();
         }, throwable -> {
 
