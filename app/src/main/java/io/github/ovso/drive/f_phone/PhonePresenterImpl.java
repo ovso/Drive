@@ -7,11 +7,18 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.app.MyApplication;
+import io.github.ovso.drive.f_phone.model.DResult;
 import io.github.ovso.drive.f_phone.model.Documents;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
+import java.util.List;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
 import timber.log.Timber;
 
@@ -80,13 +87,31 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   @DebugLog private void req(String query) {
     compositeDisposable.add(network.getResult(query, page)
         .subscribeOn(Schedulers.io())
+        .flattenAsObservable(new Function<DResult, Iterable<Documents>>() {
+          @Override public Iterable<Documents> apply(DResult dResult) throws Exception {
+            is_end = dResult.getMeta().is_end();
+            return dResult.getDocuments();
+          }
+        })
+        .flatMap(new Function<Documents, ObservableSource<Documents>>() {
+          @Override public ObservableSource<Documents> apply(Documents documents) throws Exception {
+            return Observable.fromArray(documents);
+          }
+        })
+        .filter(new Predicate<Documents>() {
+          @Override public boolean test(Documents documents) throws Exception {
+            return !TextUtils.isEmpty(documents.getPhone());
+          }
+        })
+        .toList()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(dResult -> {
-          is_end = dResult.getMeta().is_end();
-          adapterDataModel.addAll(dResult.getDocuments());
-          view.refresh();
-          view.hideLoading();
-          view.setLoaded();
+        .subscribe(new Consumer<List<Documents>>() {
+          @Override public void accept(List<Documents> items) throws Exception {
+            adapterDataModel.addAll(items);
+            view.refresh();
+            view.hideLoading();
+            view.setLoaded();
+          }
         }, throwable -> {
           view.hideLoading();
         }));
@@ -133,10 +158,12 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
 
   @DebugLog @Override public void onItemClick(Documents item) {
   }
+
   private boolean is_end;
+
   @DebugLog @Override public void onLoadMore() {
 
-    if(is_end) {
+    if (is_end) {
       Timber.d("is_end = " + is_end);
       return;
     }
@@ -147,14 +174,28 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
     page++;
     compositeDisposable.add(network.getResult(this.query, page)
         .subscribeOn(Schedulers.io())
+        .flattenAsObservable(new Function<DResult, Iterable<Documents>>() {
+          @Override public Iterable<Documents> apply(DResult dResult) throws Exception {
+            is_end = dResult.getMeta().is_end();
+            return dResult.getDocuments();
+          }
+        }).flatMap(new Function<Documents, ObservableSource<Documents>>() {
+          @Override public ObservableSource<Documents> apply(Documents documents) throws Exception {
+            return Observable.just(documents);
+          }
+        }).filter(new Predicate<Documents>() {
+          @Override public boolean test(Documents documents) throws Exception {
+            return !TextUtils.isEmpty(documents.getPhone());
+          }
+        }).toList()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(dResult -> {
+        .subscribe((List<Documents> items) -> {
           adapterDataModel.remove(lastPosition);
           view.notifyItemRemoved(lastPosition);
-          is_end = dResult.getMeta().is_end();
+
           int oldSize = adapterDataModel.getSize();
-          adapterDataModel.addAll(dResult.getDocuments());
-          view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize()-1);
+          adapterDataModel.addAll(items);
+          view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize());
           view.setLoaded();
         }, throwable -> {
 
