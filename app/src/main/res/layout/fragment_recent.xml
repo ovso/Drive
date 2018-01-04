@@ -10,17 +10,11 @@
     tools:context="io.github.ovso.drive.main.MainActivity"
     tools:showIn="@layout/app_bar_main"
     >
-  <android.support.v7.widget.RecyclerView
-      android:id="@id/recyclerview"
+  <TextView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      tools:listitem="@layout/fragment_phone_item"
-      />
-  <ProgressBar
-      android:id="@id/progress_bar"
-      android:layout_width="@dimen/dp_36"
-      android:layout_height="@dimen/dp_36"
-      android:layout_gravity="center"
-      android:visibility="gone"
+      android:gravity="center"
+      tools:text="최근연락처"
+      android:text="@string/comming_soom"
       />
 </FrameLayout>

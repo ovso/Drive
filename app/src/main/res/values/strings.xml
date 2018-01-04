@@ -15,5 +15,7 @@
   <string name="rationale_title">Permission required</string>
   <string name="rationale_message">we need permission for read <b>contact</b> and find your <b>location</b></string>
   <string name="nationwide">전국</string>
+  <string name="comming_soom">준비중입니다.</string>
+  <string name="warning_permission">위치 권한을 설정하셔야 합니다.</string>
 
 </resources>

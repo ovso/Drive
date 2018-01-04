@@ -29,8 +29,6 @@ public interface MainPresenter {
 
     void showPhoneFragment();
 
-    void showThemeFrgament();
-
     void showAcupoints();
 
     void showLicensesDialog(Notices notices);
@@ -44,5 +42,7 @@ public interface MainPresenter {
     void showAd();
 
     void showHelpAlert(String msg);
+
+    void showRecentFragment();
   }
 }

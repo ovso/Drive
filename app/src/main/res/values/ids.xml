@@ -18,4 +18,5 @@
   <item name="bottom_nav_recent" type="id"/>
   <item name="phone_textview" type="id"/>
   <item name="category_name_textview" type="id"/>
+  <item name="progress_bar" type="id"/>
 </resources>

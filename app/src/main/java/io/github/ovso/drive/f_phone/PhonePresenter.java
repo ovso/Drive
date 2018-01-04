@@ -17,6 +17,8 @@ public interface PhonePresenter {
 
   void onLoadMore();
 
+  void onResume();
+
   interface View {
 
     void setRecyclerView();
@@ -40,5 +42,7 @@ public interface PhonePresenter {
     void notifyItemRemoved(int position);
 
     void notifyItemRangeInserted(int startPosition, int itemCount);
+
+    void showPermissionAlert();
   }
 }

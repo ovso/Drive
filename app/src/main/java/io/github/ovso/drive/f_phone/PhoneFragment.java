@@ -1,11 +1,17 @@
 package io.github.ovso.drive.f_phone;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import butterknife.BindView;
 import hugo.weaving.DebugLog;
+import io.github.ovso.drive.BuildConfig;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.adapter.OnEndlessRecyclerScrollListener;
 import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
@@ -25,6 +31,7 @@ public class PhoneFragment extends BaseFragment
     implements PhonePresenter.View, OnRecyclerItemClickListener<Documents>,
     OnEndlessRecyclerScrollListener.OnLoadMoreListener {
   @Getter @BindView(R.id.recyclerview) RecyclerView recyclerView;
+  @BindView(R.id.progress_bar) ProgressBar progressBar;
   @Inject @Getter CompositeDisposable compositeDisposable;
   @Inject OnEndlessRecyclerScrollListener onEndlessRecyclerScrollListener;
   @Inject @Getter PhoneAdapter adapter;
@@ -53,7 +60,6 @@ public class PhoneFragment extends BaseFragment
     onEndlessRecyclerScrollListener.setLayoutManager(recyclerView.getLayoutManager());
     recyclerView.addOnScrollListener(onEndlessRecyclerScrollListener);
     recyclerView.setAdapter(adapter);
-
   }
 
   @Override public void showMessage(int resId) {
@@ -65,9 +71,11 @@ public class PhoneFragment extends BaseFragment
   }
 
   @Override public void showLoading() {
+    progressBar.setVisibility(View.VISIBLE);
   }
 
   @Override public void hideLoading() {
+    progressBar.setVisibility(View.GONE);
   }
 
   @Override public void refresh() {
@@ -105,5 +113,19 @@ public class PhoneFragment extends BaseFragment
 
   @Override public void notifyItemRangeInserted(int startPosition, int itemCount) {
     adapterView.notifyItemRangeInserted(startPosition, itemCount);
+  }
+
+  @Override public void showPermissionAlert() {
+    new AlertDialog.Builder(getActivity()).setMessage(R.string.warning_permission)
+        .setCancelable(false)
+        .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
+          startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+              Uri.parse("package:" + BuildConfig.APPLICATION_ID)));
+        })
+        .show();
+  }
+
+  @DebugLog public void onRestart() {
+
   }
 }

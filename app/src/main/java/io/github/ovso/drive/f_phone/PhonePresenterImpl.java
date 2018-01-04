@@ -50,7 +50,9 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   @DebugLog @Override public void onActivityCreate() {
     view.showLoading();
     view.setRecyclerView();
-
+    reqPermission();
+  }
+  private void reqPermission() {
     permissions.request(Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
         .subscribe(granted -> {
@@ -59,11 +61,12 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           } else {
             // Oups permission denied
             view.hideLoading();
+            view.showPermissionAlert();
           }
           Timber.d("granted = " + granted);
         });
-  }
 
+  }
   private String query;
 
   private void reverseGeocodeObservable(final double lat, final double lng) {
@@ -149,7 +152,10 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
       loc[4][1] = 129.189196;
 
       reverseGeocodeObservable(loc[0][0], loc[0][1]);
-    }, throwable -> view.hideLoading()));
+    }, throwable -> {
+      view.hideLoading();
+      view.showMessage(R.string.error_server);
+    }));
   }
 
   @Override public void onDetach() {
@@ -164,7 +170,6 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   @DebugLog @Override public void onLoadMore() {
 
     if (is_end) {
-      Timber.d("is_end = " + is_end);
       return;
     }
 
@@ -198,7 +203,12 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize());
           view.setLoaded();
         }, throwable -> {
-
+          view.showMessage(R.string.error_server);
+          view.hideLoading();
         }));
+  }
+
+  @Override public void onResume() {
+    reqPermission();
   }
 }
