@@ -28,12 +28,10 @@ import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.PhoneFragment;
 import io.github.ovso.drive.f_recent.RecentFragment;
 import io.github.ovso.drive.framework.Constants;
-import io.github.ovso.drive.framework.ObjectUtils;
 import io.github.ovso.drive.framework.SystemUtility;
 import io.github.ovso.drive.framework.customview.BaseActivity;
 import io.github.ovso.drive.framework.customview.BottomNavigationViewBehavior;
 import javax.inject.Inject;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
     implements MainPresenter.View, HasSupportFragmentInjector {
@@ -161,17 +159,5 @@ public class MainActivity extends BaseActivity
     });
 
     adContainer.addView(view);
-  }
-
-  @DebugLog @Override protected void onRestart() {
-    super.onRestart();
-    Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-    if(!ObjectUtils.isEmpty(f)) {
-      if(f instanceof PhoneFragment) {
-        PhoneFragment pFrag = (PhoneFragment) f;
-        pFrag.onRestart();
-      }
-    }
-    Timber.d("f = " + f);
   }
 }

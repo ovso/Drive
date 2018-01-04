@@ -17,8 +17,6 @@ public interface PhonePresenter {
 
   void onLoadMore();
 
-  void onResume();
-
   interface View {
 
     void setRecyclerView();

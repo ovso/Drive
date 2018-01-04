@@ -52,6 +52,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
     view.setRecyclerView();
     reqPermission();
   }
+
   private void reqPermission() {
     permissions.request(Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -65,8 +66,8 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           }
           Timber.d("granted = " + granted);
         });
-
   }
+
   private String query;
 
   private void reverseGeocodeObservable(final double lat, final double lng) {
@@ -184,15 +185,18 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
             is_end = dResult.getMeta().is_end();
             return dResult.getDocuments();
           }
-        }).flatMap(new Function<Documents, ObservableSource<Documents>>() {
+        })
+        .flatMap(new Function<Documents, ObservableSource<Documents>>() {
           @Override public ObservableSource<Documents> apply(Documents documents) throws Exception {
             return Observable.just(documents);
           }
-        }).filter(new Predicate<Documents>() {
+        })
+        .filter(new Predicate<Documents>() {
           @Override public boolean test(Documents documents) throws Exception {
             return !TextUtils.isEmpty(documents.getPhone());
           }
-        }).toList()
+        })
+        .toList()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe((List<Documents> items) -> {
           adapterDataModel.remove(lastPosition);
@@ -206,9 +210,5 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
           view.showMessage(R.string.error_server);
           view.hideLoading();
         }));
-  }
-
-  @Override public void onResume() {
-    reqPermission();
   }
 }
