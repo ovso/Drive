@@ -22,6 +22,7 @@ public class MainPresenterImpl implements MainPresenter {
   @Override public void onCreate(Bundle savedInstanceState) {
     view.setListener();
     view.showPhoneFragment();
+    view.showTitle(R.string.app_name);
     //view.showAd();
   }
 

@@ -44,5 +44,7 @@ public interface MainPresenter {
     void showHelpAlert(String msg);
 
     void showRecentFragment();
+
+    void showTitle(@StringRes int resId);
   }
 }
