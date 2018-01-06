@@ -29,8 +29,6 @@ public interface MainPresenter {
 
     void showPhoneFragment();
 
-    void showAcupoints();
-
     void showLicensesDialog(Notices notices);
 
     void showMessage(@StringRes int resId);
@@ -45,6 +43,5 @@ public interface MainPresenter {
 
     void showRecentFragment();
 
-    void showTitle(@StringRes int resId);
   }
 }

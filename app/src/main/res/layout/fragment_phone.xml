@@ -15,7 +15,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       tools:listitem="@layout/fragment_phone_item"
-      android:background="@color/ripple_material_light"
+      android:background="@android:color/white"
       />
   <ProgressBar
       android:id="@id/progress_bar"

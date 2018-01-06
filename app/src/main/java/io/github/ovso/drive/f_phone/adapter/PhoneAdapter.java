@@ -63,7 +63,6 @@ public class PhoneAdapter extends BaseRecyclerAdapter
 
       holder.titleTextview.setText(item.getPlace_name());
       holder.phoneTextView.setText(item.getPhone());
-      holder.cateNameTextView.setText(item.getCategory_name());
       compositeDisposable.add(RxView.clicks(holder.itemView)
           .throttleFirst(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
           .observeOn(AndroidSchedulers.mainThread())

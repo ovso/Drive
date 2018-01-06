@@ -87,14 +87,6 @@ public class MainActivity extends BaseActivity
         .commit();
   }
 
-  @Override public void showTitle(int resId) {
-    getSupportActionBar().setTitle(resId);
-  }
-
-  @Override public void showAcupoints() {
-
-  }
-
   @Override public void showLicensesDialog(Notices notices) {
     new LicensesDialog.Builder(this).setNotices(notices).setIncludeOwnLicense(true).build().show();
   }
