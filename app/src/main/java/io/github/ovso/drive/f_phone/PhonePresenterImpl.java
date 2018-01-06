@@ -55,17 +55,17 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
 
   private void reqPermission() {
     permissions.request(Manifest.permission.ACCESS_NETWORK_STATE,
-        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-        .subscribe(granted -> {
-          if (granted) { // Always true pre-M
-            lastKnownLocation();
-          } else {
-            // Oups permission denied
-            view.hideLoading();
-            view.showPermissionAlert();
-          }
-          Timber.d("granted = " + granted);
-        });
+        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.CALL_PHONE).subscribe(granted -> {
+      if (granted) { // Always true pre-M
+        lastKnownLocation();
+      } else {
+        // Oups permission denied
+        view.hideLoading();
+        view.showPermissionAlert();
+      }
+      Timber.d("granted = " + granted);
+    });
   }
 
   private String query;
@@ -164,6 +164,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   }
 
   @DebugLog @Override public void onItemClick(Documents item) {
+    view.makeCall(item.getPhone());
   }
 
   private boolean is_end;

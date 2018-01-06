@@ -16,6 +16,8 @@
   <string name="rationale_message">we need permission for read <b>contact</b> and find your <b>location</b></string>
   <string name="nationwide">전국</string>
   <string name="comming_soom">준비중입니다.</string>
-  <string name="warning_permission">위치 권한을 설정하셔야 합니다.</string>
+  <string name="warning_permission">[위치],[전화] 권한을 설정하셔야 합니다.</string>
+  <string name="do_you_want_to_call">전화를 거시겠습니까?</string>
+  <string name="make_call">전화걸기</string>
 
 </resources>

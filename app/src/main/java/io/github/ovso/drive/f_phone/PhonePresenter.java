@@ -42,5 +42,7 @@ public interface PhonePresenter {
     void notifyItemRangeInserted(int startPosition, int itemCount);
 
     void showPermissionAlert();
+
+    void makeCall(String phone);
   }
 }

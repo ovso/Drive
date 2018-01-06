@@ -125,6 +125,17 @@ public class PhoneFragment extends BaseFragment
         .show();
   }
 
+  @Override public void makeCall(String phone) {
+    new AlertDialog.Builder(getActivity()).setMessage(R.string.do_you_want_to_call)
+        .setPositiveButton(R.string.make_call, (dialogInterface, i) -> {
+          Intent intent = new Intent(Intent.ACTION_CALL);
+          intent.setData(Uri.parse("tel:" + phone));
+          startActivity(intent);
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
+  }
+
   @DebugLog public void onRestart() {
 
   }
