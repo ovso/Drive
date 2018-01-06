@@ -102,7 +102,6 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-    implementation "com.google.guava:guava:$guava_version"
     implementation "com.jakewharton:butterknife:$butterknife_version"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
@@ -112,12 +111,8 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombok_version"
     annotationProcessor "org.projectlombok:lombok:$lombok_version"
     provided "javax.annotation:jsr250-api:$jsr250_version"
-    implementation "jp.wasabeef:recyclerview-animators:$recyclerview_animators_version"
     implementation "de.psdev.licensesdialog:licensesdialog:$licensesdialog_version"
     implementation "com.google.code.findbugs:jsr305:$jsr305_version"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
-    implementation "com.github.chrisbanes:PhotoView:$photoview_version"
     implementation "com.pixplicity.easyprefs:library:$easyprefs_version"
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
@@ -126,12 +121,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
-    implementation "com.github.markomilos:paginate:$paginate_version"
 
     implementation "pl.charmas.android:android-reactive-location2:$reactive_location_version"
     implementation "com.google.android.gms:play-services-location:$play_service_version"
     implementation "com.google.android.gms:play-services-places:$play_service_version"
-    implementation "gun0912.ted:tedpermission-rx2:$tedpermission_rx2_version"
     implementation "com.tbruyelle.rxpermissions2:rxpermissions:$rxpermissions2_version"
-    implementation 'gun0912.ted:tedpermission:2.1.0'
 }
