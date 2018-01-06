@@ -43,5 +43,6 @@ public interface MainPresenter {
 
     void showRecentFragment();
 
+    void changeTheme();
   }
 }

@@ -47,6 +47,10 @@ public class MainActivity extends BaseActivity
     presenter.onCreate(savedInstanceState);
   }
 
+  @Override public void changeTheme() {
+    setTheme(R.style.AppTheme_NoActionBar);
+  }
+
   @Override public void setListener() {
     ActionBarDrawerToggle toggle =
         new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,

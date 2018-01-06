@@ -17,6 +17,7 @@ public class MainPresenterImpl implements MainPresenter {
   MainPresenterImpl(MainPresenter.View view) {
     this.view = view;
     this.compositeDisposable = new CompositeDisposable();
+    view.changeTheme();
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {
