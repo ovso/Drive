@@ -90,31 +90,19 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   @DebugLog private void req(String query) {
     compositeDisposable.add(network.getResult(query, page)
         .subscribeOn(Schedulers.io())
-        .flattenAsObservable(new Function<DResult, Iterable<Documents>>() {
-          @Override public Iterable<Documents> apply(DResult dResult) throws Exception {
-            is_end = dResult.getMeta().is_end();
-            return dResult.getDocuments();
-          }
+        .flattenAsObservable(dResult -> {
+          is_end = dResult.getMeta().is_end();
+          return dResult.getDocuments();
         })
-        .flatMap(new Function<Documents, ObservableSource<Documents>>() {
-          @Override public ObservableSource<Documents> apply(Documents documents) throws Exception {
-            return Observable.fromArray(documents);
-          }
-        })
-        .filter(new Predicate<Documents>() {
-          @Override public boolean test(Documents documents) throws Exception {
-            return !TextUtils.isEmpty(documents.getPhone());
-          }
-        })
+        .flatMap(documents -> Observable.fromArray(documents))
+        .filter(documents -> !TextUtils.isEmpty(documents.getPhone()))
         .toList()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<List<Documents>>() {
-          @Override public void accept(List<Documents> items) throws Exception {
-            adapterDataModel.addAll(items);
-            view.refresh();
-            view.hideLoading();
-            view.setLoaded();
-          }
+        .subscribe(items -> {
+          adapterDataModel.addAll(items);
+          view.refresh();
+          view.hideLoading();
+          view.setLoaded();
         }, throwable -> {
           view.hideLoading();
         }));
@@ -175,34 +163,24 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
     }
 
     adapterDataModel.add(null);
-    final int lastPosition = adapterDataModel.getSize() - 1;
-    view.notifyItemInserted(lastPosition);
+    final int loadingPosition = adapterDataModel.getSize() - 1;
+    view.notifyItemInserted(loadingPosition);
     page++;
     compositeDisposable.add(network.getResult(this.query, page)
         .subscribeOn(Schedulers.io())
-        .flattenAsObservable(new Function<DResult, Iterable<Documents>>() {
-          @Override public Iterable<Documents> apply(DResult dResult) throws Exception {
-            is_end = dResult.getMeta().is_end();
-            return dResult.getDocuments();
-          }
+        .flattenAsObservable(dResult -> {
+          is_end = dResult.getMeta().is_end();
+          return dResult.getDocuments();
         })
-        .flatMap(new Function<Documents, ObservableSource<Documents>>() {
-          @Override public ObservableSource<Documents> apply(Documents documents) throws Exception {
-            return Observable.just(documents);
-          }
-        })
-        .filter(new Predicate<Documents>() {
-          @Override public boolean test(Documents documents) throws Exception {
-            return !TextUtils.isEmpty(documents.getPhone());
-          }
-        })
+        .flatMap(documents -> Observable.just(documents))
+        .filter(documents -> !TextUtils.isEmpty(documents.getPhone()))
         .toList()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe((List<Documents> items) -> {
-          adapterDataModel.remove(lastPosition);
-          view.notifyItemRemoved(lastPosition);
+          adapterDataModel.remove(loadingPosition);
+          view.notifyItemRemoved(loadingPosition);
 
-          int oldSize = adapterDataModel.getSize();
+          int oldSize = loadingPosition;
           adapterDataModel.addAll(items);
           view.notifyItemRangeInserted(oldSize, adapterDataModel.getSize());
           view.setLoaded();
