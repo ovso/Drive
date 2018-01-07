@@ -9,9 +9,7 @@ import de.psdev.licensesdialog.model.Notices;
  */
 
 public class Constants {
-  public final static String CAULY_APP_CODE = "AZYsWa4X";
-  public final static int DURATION_RECYCLERVIEW_ANI = 500;
-  public final static int DELAY = 500;
+  public final static String CAULY_APP_CODE = "guqUe1uN";
 
   public static Notices getNotices() {
     final Notices notices = new Notices();
