@@ -80,7 +80,6 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
             Address address = addresses.get(0);
             Timber.d("address = " + address);
             query = getQuery(address.getLocality(), address.getThoroughfare());
-            query = "서울 대리운전";
             req(query);
           } else {
             view.hideLoading();
@@ -152,7 +151,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
       loc[4][0] = 35.1801988;   //부산광역시 송정
       loc[4][1] = 129.189196;
 
-      reverseGeocodeObservable(loc[0][0], loc[0][1]);
+      reverseGeocodeObservable(lat, lng);
     }, throwable -> {
       view.hideLoading();
       view.showMessage(R.string.error_server);
