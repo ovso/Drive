@@ -51,7 +51,7 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
-            useProguard true
+            useProguard false
             proguardFile getDefaultProguardFile('proguard-android.txt')
             proguardFile 'proguard-rules.pro'
             proguardFile 'proguard-butterknipe.pro'

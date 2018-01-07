@@ -10,7 +10,7 @@ buildscript {
         version_code = 1
 
         support_version = '27.0.2'
-        play_service_version = '11.0.4'
+        play_service_version = '11.6.2'
         constraint_version = '1.0.2'
         hugo_version = '1.2.1'
         butterknife_version = '8.8.1'
@@ -24,23 +24,11 @@ buildscript {
         lombok_version = '1.16.18'
         jsr250_version = '1.0'
         jsr305_version = '3.0.2'
-        gradle_version = '3.1.0'
-        google_services_version = '3.1.0'
-        firebase_version = '11.6.0'
-        rxfirebase_version = '11.6.0.1'
-        recyclerview_animators_version = '2.2.7'
-        realm_version = '4.2.0'
-        guava_version = '23.5-android'
         licensesdialog_version = '1.8.3'
-        glide_version = '4.0.0'
-        photoview_version = '2.0.0'
-        easyprefs_version = '1.9.0'
         leakcanary_version = '1.5.4'
         retrofit_version = '2.3.0'
         okhttp3_version = '3.9.0'
-        paginate_version = '0.5.1'
         reactive_location_version = '2.1@aar'
-        tedpermission_rx2_version = '2.1.0'
         rxpermissions2_version = '0.9.4@aar'
     }
 
@@ -51,7 +39,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "com.jakewharton.hugo:hugo-plugin:$hugo_version"
-        //classpath "com.google.gms:google-services:$google_services_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
