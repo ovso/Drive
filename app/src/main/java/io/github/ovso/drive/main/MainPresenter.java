@@ -44,5 +44,7 @@ public interface MainPresenter {
     void showRecentFragment();
 
     void changeTheme();
+
+    void showOpensourceLicenseDialog(Notices notices);
   }
 }

@@ -51,6 +51,13 @@ public class MainActivity extends BaseActivity
     setTheme(R.style.AppTheme_NoActionBar);
   }
 
+  @Override public void showOpensourceLicenseDialog(Notices notices) {
+    new LicensesDialog.Builder(this).setNotices(notices)
+        .setIncludeOwnLicense(true)
+        .build()
+        .show();
+  }
+
   @Override public void setListener() {
     ActionBarDrawerToggle toggle =
         new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,

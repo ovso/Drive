@@ -113,7 +113,7 @@ dependencies {
     provided "javax.annotation:jsr250-api:$jsr250_version"
     implementation "de.psdev.licensesdialog:licensesdialog:$licensesdialog_version"
     implementation "com.google.code.findbugs:jsr305:$jsr305_version"
-    implementation "com.pixplicity.easyprefs:library:$easyprefs_version"
+    //implementation "com.pixplicity.easyprefs:library:$easyprefs_version"
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 

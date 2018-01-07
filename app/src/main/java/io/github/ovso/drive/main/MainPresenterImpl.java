@@ -3,6 +3,7 @@ package io.github.ovso.drive.main;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import io.github.ovso.drive.R;
+import io.github.ovso.drive.framework.Constants;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -29,6 +30,7 @@ public class MainPresenterImpl implements MainPresenter {
   @Override public boolean onNavItemSelected(int itemId) {
     switch (itemId) {
       case R.id.nav_opensource:
+        view.showOpensourceLicenseDialog(Constants.getNotices());
         break;
       case R.id.nav_help:
         break;

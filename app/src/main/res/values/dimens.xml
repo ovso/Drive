@@ -9,4 +9,5 @@
   <dimen name="dp_30">30dp</dimen>
   <dimen name="dp_36">36dp</dimen>
   <dimen name="dp_10">10dp</dimen>
+  <dimen name="dp_1">1dp</dimen>
 </resources>
