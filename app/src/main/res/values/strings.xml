@@ -19,5 +19,6 @@
   <string name="warning_permission">위치 및 전화 권한을 설정하셔야 합니다.</string>
   <string name="do_you_want_to_call">전화를 거시겠습니까?</string>
   <string name="make_call">전화걸기</string>
+  <string name="help_message">위치, 전화 권한을 요청하고 사용하고 있으나 개인정보를 별도로 사용하거나 수집하지 않습니다.\n\n 개선사항은 리뷰를 남기시거나 이메일을 보내주시면 감사하겠습니다.</string>
 
 </resources>

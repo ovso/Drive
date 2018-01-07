@@ -33,6 +33,7 @@ public class MainPresenterImpl implements MainPresenter {
         view.showOpensourceLicenseDialog(Constants.getNotices());
         break;
       case R.id.nav_help:
+        view.showHelpDialog();
         break;
     }
     view.closeDrawer();

@@ -46,5 +46,7 @@ public interface MainPresenter {
     void changeTheme();
 
     void showOpensourceLicenseDialog(Notices notices);
+
+    void showHelpDialog();
   }
 }

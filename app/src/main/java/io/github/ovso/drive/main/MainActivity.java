@@ -52,9 +52,13 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void showOpensourceLicenseDialog(Notices notices) {
-    new LicensesDialog.Builder(this).setNotices(notices)
-        .setIncludeOwnLicense(true)
-        .build()
+    new LicensesDialog.Builder(this).setNotices(notices).setIncludeOwnLicense(true).build().show();
+  }
+
+  @Override public void showHelpDialog() {
+    new AlertDialog.Builder(this).setTitle(R.string.help)
+        .setMessage(R.string.help_message)
+        .setPositiveButton(android.R.string.ok, null)
         .show();
   }
 
