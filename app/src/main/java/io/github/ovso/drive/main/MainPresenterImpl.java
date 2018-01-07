@@ -24,7 +24,7 @@ public class MainPresenterImpl implements MainPresenter {
   @Override public void onCreate(Bundle savedInstanceState) {
     view.showPhoneFragment();
     view.setListener();
-    //view.showAd();
+    view.showAd();
   }
 
   @Override public boolean onNavItemSelected(int itemId) {
