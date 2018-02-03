@@ -1,20 +1,17 @@
 package io.github.ovso.drive.di;
 
-import android.app.Activity;
-import dagger.Binds;
 import dagger.Module;
-import dagger.android.ActivityKey;
-import dagger.android.AndroidInjector;
-import dagger.multibindings.IntoMap;
+import dagger.android.ContributesAndroidInjector;
+import io.github.ovso.drive.f_phone.di.PhoneFragmentProvider;
 import io.github.ovso.drive.main.MainActivity;
-import io.github.ovso.drive.main.MainActivityComponent;
+import io.github.ovso.drive.main.MainActivityModule;
 
 /**
  * Created by jaeho on 2017. 10. 16
  */
 
 @Module public abstract class ActivityBuilder {
-  @Binds @IntoMap @ActivityKey(MainActivity.class)
-  abstract AndroidInjector.Factory<? extends Activity> bindMainActivity(
-      MainActivityComponent.Builder builder);
+
+  @ContributesAndroidInjector(modules = { MainActivityModule.class, PhoneFragmentProvider.class })
+  abstract MainActivity bindMainActivity();
 }

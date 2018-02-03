@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.framework.Constants;
 import io.reactivex.disposables.CompositeDisposable;
+import javax.inject.Inject;
 
 /**
  * Created by jaeho on 2017. 10. 16
@@ -15,7 +16,7 @@ public class MainPresenterImpl implements MainPresenter {
   private MainPresenter.View view;
   private CompositeDisposable compositeDisposable;
 
-  MainPresenterImpl(MainPresenter.View view) {
+  @Inject MainPresenterImpl(MainPresenter.View view) {
     this.view = view;
     this.compositeDisposable = new CompositeDisposable();
     view.changeTheme();
