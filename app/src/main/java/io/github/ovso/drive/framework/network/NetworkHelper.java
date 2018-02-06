@@ -1,5 +1,6 @@
 package io.github.ovso.drive.framework.network;
 
+import io.github.ovso.drive.Security;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -40,7 +41,7 @@ public class NetworkHelper {
       Request original = chain.request();
       Request.Builder requestBuilder = original.newBuilder()
           .header("Content-Type", "application/json;charset=UTF-8")
-          .addHeader("Authorization", "KakaoAK 55f1556a533e894f9723cfe257053109");
+          .addHeader("Authorization", Security.KAKAO_API_KEY.getValue());
 
       Request request = requestBuilder.build();
       return chain.proceed(request);

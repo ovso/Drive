@@ -9,7 +9,6 @@ import de.psdev.licensesdialog.model.Notices;
  */
 
 public class Constants {
-  public final static String CAULY_APP_CODE = "guqUe1uN";
 
   public static Notices getNotices() {
     final Notices notices = new Notices();

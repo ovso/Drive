@@ -14,20 +14,16 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.BindView;
-import com.fsn.cauly.CaulyAdInfo;
-import com.fsn.cauly.CaulyAdInfoBuilder;
 import com.fsn.cauly.CaulyAdView;
-import com.fsn.cauly.CaulyAdViewListener;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.model.Notices;
-import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.f_phone.PhoneFragment;
 import io.github.ovso.drive.f_recent.RecentFragment;
-import io.github.ovso.drive.framework.Constants;
+import io.github.ovso.drive.framework.ActivityUtils;
 import io.github.ovso.drive.framework.SystemUtility;
 import io.github.ovso.drive.framework.customview.BaseActivity;
 import io.github.ovso.drive.framework.customview.BottomNavigationViewBehavior;
@@ -36,6 +32,7 @@ import javax.inject.Inject;
 public class MainActivity extends BaseActivity
     implements MainPresenter.View, HasSupportFragmentInjector {
 
+  @Inject CaulyAdView caulyAdView;
   @Inject MainPresenter presenter;
   @BindView(R.id.fragment_container) FrameLayout fragmentContainer;
   @BindView(R.id.bottom_navigation_view) BottomNavigationView bottomNavigationView;
@@ -87,19 +84,13 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void showPhoneFragment() {
-    getSupportFragmentManager().beginTransaction()
-        .setCustomAnimations(R.animator.enter_animation, R.animator.exit_animation,
-            R.animator.enter_animation, R.animator.exit_animation)
-        .replace(R.id.fragment_container, PhoneFragment.newInstance())
-        .commit();
+    ActivityUtils.replaceFragment(getSupportFragmentManager(), PhoneFragment.newInstance(),
+        R.id.fragment_container);
   }
 
   @Override public void showRecentFragment() {
-    getSupportFragmentManager().beginTransaction()
-        .setCustomAnimations(R.animator.enter_animation, R.animator.exit_animation,
-            R.animator.enter_animation, R.animator.exit_animation)
-        .replace(R.id.fragment_container, RecentFragment.newInstance())
-        .commit();
+    ActivityUtils.replaceFragment(getSupportFragmentManager(), RecentFragment.newInstance(),
+        R.id.fragment_container);
   }
 
   @Override public void showLicensesDialog(Notices notices) {
@@ -145,30 +136,11 @@ public class MainActivity extends BaseActivity
   }
 
   @Override public void showAd() {
-    CaulyAdView view;
-    CaulyAdInfo info = new CaulyAdInfoBuilder(Constants.CAULY_APP_CODE).effect(
-        CaulyAdInfo.Effect.Circle.toString()).build();
-    view = new CaulyAdView(this);
-    view.setAdInfo(info);
-    view.setAdViewListener(new CaulyAdViewListener() {
-      @DebugLog @Override public void onReceiveAd(CaulyAdView caulyAdView, boolean b) {
+    adContainer.addView(caulyAdView);
+  }
 
-      }
-
-      @DebugLog @Override
-      public void onFailedToReceiveAd(CaulyAdView caulyAdView, int i, String s) {
-
-      }
-
-      @DebugLog @Override public void onShowLandingScreen(CaulyAdView caulyAdView) {
-
-      }
-
-      @DebugLog @Override public void onCloseLandingScreen(CaulyAdView caulyAdView) {
-
-      }
-    });
-
-    adContainer.addView(view);
+  @Override protected void onDestroy() {
+    caulyAdView.destroy();
+    super.onDestroy();
   }
 }
