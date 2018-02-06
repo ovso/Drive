@@ -9,6 +9,7 @@ import io.github.ovso.drive.R;
 import io.github.ovso.drive.app.MyApplication;
 import io.github.ovso.drive.f_phone.model.DResult;
 import io.github.ovso.drive.f_phone.model.Documents;
+import io.github.ovso.drive.framework.AppLogger;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -64,7 +65,6 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         view.hideLoading();
         view.showPermissionAlert();
       }
-      Timber.d("granted = " + granted);
     });
   }
 
@@ -78,7 +78,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         .subscribe(addresses -> {
           if (addresses.size() > 0) {
             Address address = addresses.get(0);
-            Timber.d("address = " + address);
+            AppLogger.i("address = " + address);
             query = getQuery(address.getLocality(), address.getThoroughfare());
             req(query);
           } else {
@@ -88,24 +88,25 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
   }
 
   @DebugLog private void req(String query) {
-    compositeDisposable.add(network.getResult(query, page)
-        .subscribeOn(Schedulers.io())
-        .flattenAsObservable(dResult -> {
-          is_end = dResult.getMeta().is_end();
-          return dResult.getDocuments();
-        })
-        .flatMap(documents -> Observable.fromArray(documents))
-        .filter(documents -> !TextUtils.isEmpty(documents.getPhone()))
-        .toList()
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(items -> {
-          adapterDataModel.addAll(items);
-          view.refresh();
-          view.hideLoading();
-          view.setLoaded();
-        }, throwable -> {
-          view.hideLoading();
-        }));
+    compositeDisposable.add(
+        network.getResult(query, page)
+            .subscribeOn(Schedulers.io())
+            .flattenAsObservable(dResult -> {
+              is_end = dResult.getMeta().is_end();
+              return dResult.getDocuments();
+            })
+            .flatMap(documents -> Observable.fromArray(documents))
+            .filter(documents -> !TextUtils.isEmpty(documents.getPhone()))
+            .toList()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(items -> {
+              adapterDataModel.addAll(items);
+              view.refresh();
+              view.hideLoading();
+              view.setLoaded();
+            }, throwable -> {
+              view.hideLoading();
+            }));
   }
 
   @DebugLog private String getQuery(String locality, String thoroughfare) {
@@ -125,7 +126,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
     compositeDisposable.add(locationProvider.getLastKnownLocation().subscribe(location -> {
       double lat = location.getLatitude();
       double lng = location.getLongitude();
-      Timber.d("lat = " + lat + ", lng = " + lng);
+      AppLogger.d("lat = " + lat + ", lng = " + lng);
       //
       double[][] loc = new double[5][2];
       loc[0][0] = 36.3021057;   //옥천군 옥천읍
