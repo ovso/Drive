@@ -92,7 +92,11 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
   }
 
   @Override public void showLicensesDialog(Notices notices) {
-    new LicensesDialog.Builder(this).setNotices(notices).setIncludeOwnLicense(true).build().show();
+    new LicensesDialog.Builder(this).setTitle(R.string.opensource_license)
+        .setNotices(notices)
+        .setIncludeOwnLicense(true)
+        .build()
+        .show();
   }
 
   @Override protected int getLayoutResId() {
