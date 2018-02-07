@@ -8,7 +8,7 @@ import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 import io.github.ovso.drive.Security;
 import io.github.ovso.drive.main.f_phone.PhoneFragment;
-import io.github.ovso.drive.main.f_phone.di.PhoneFragmentModule;
+import io.github.ovso.drive.main.f_phone.PhoneFragmentModule;
 import io.github.ovso.drive.main.f_recent.RecentFragment;
 import io.github.ovso.drive.main.f_recent.RecentFragmentModule;
 import io.github.ovso.drive.main.listener.OnSimpleAdViewListener;
