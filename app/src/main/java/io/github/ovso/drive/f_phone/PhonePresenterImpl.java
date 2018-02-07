@@ -21,7 +21,7 @@ import timber.log.Timber;
  * Created by jaeho on 2017. 11. 27
  */
 
-public class PhonePresenterImpl extends Exception implements PhonePresenter {
+public class PhonePresenterImpl implements PhonePresenter {
   private PhonePresenter.View view;
   private BaseAdapterDataModel<Documents> adapterDataModel;
   private PhoneNetwork network;
