@@ -10,6 +10,7 @@ import io.github.ovso.drive.Security;
 import io.github.ovso.drive.f_phone.PhoneFragment;
 import io.github.ovso.drive.f_phone.di.PhoneFragmentModule;
 import io.github.ovso.drive.f_recent.RecentFragment;
+import io.github.ovso.drive.f_recent.RecentFragmentModule;
 import io.github.ovso.drive.main.listener.OnSimpleAdViewListener;
 
 /**
@@ -20,7 +21,8 @@ import io.github.ovso.drive.main.listener.OnSimpleAdViewListener;
   @ContributesAndroidInjector(modules = PhoneFragmentModule.class)
   abstract PhoneFragment providePhoneFragmentFactory();
 
-  @ContributesAndroidInjector abstract RecentFragment provideRecentFragmentFactory();
+  @ContributesAndroidInjector(modules = { RecentFragmentModule.class })
+  abstract RecentFragment provideRecentFragmentFactory();
 
   @Provides static MainPresenter provideMainPresenter(MainActivity activity) {
     return new MainPresenterImpl(activity);

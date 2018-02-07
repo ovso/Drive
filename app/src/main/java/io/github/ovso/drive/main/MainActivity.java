@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
   @BindView(R.id.ad_container) ViewGroup adContainer;
 
   //@Inject PhoneFragment phoneFragment;
-  @Inject RecentFragment recentFragment;
+  //@Inject RecentFragment recentFragment;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
   }
 
   @Override public void showRecentFragment() {
-    ActivityUtils.replaceFragment(getSupportFragmentManager(), recentFragment,
+    ActivityUtils.replaceFragment(getSupportFragmentManager(), RecentFragment.newInstance(),
         R.id.fragment_container);
   }
 

@@ -1,7 +1,7 @@
 package io.github.ovso.drive.f_recent;
 
 import android.os.Bundle;
-import hugo.weaving.DebugLog;
+import android.support.v4.app.Fragment;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import javax.inject.Inject;
@@ -10,9 +10,10 @@ import javax.inject.Inject;
  * Created by jaeho on 2017. 12. 28
  */
 
-public class RecentFragment extends BaseFragment {
+public class RecentFragment extends BaseFragment implements RecentPresenter.View {
+  @Inject RecentPresenter presenter;
 
-  @DebugLog @Inject public RecentFragment() {
+  @Inject public RecentFragment() {
 
   }
 
@@ -21,9 +22,18 @@ public class RecentFragment extends BaseFragment {
   }
 
   @Override protected void onActivityCreate(Bundle savedInstanceState) {
+
   }
 
   @Override public void onDetach() {
     super.onDetach();
+  }
+
+  @Override public void setRecyclerView() {
+
+  }
+
+  public static Fragment newInstance() {
+    return new RecentFragment();
   }
 }
