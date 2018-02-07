@@ -2,7 +2,6 @@ package io.github.ovso.drive.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import io.github.ovso.drive.f_phone.di.PhoneFragmentProvider;
 import io.github.ovso.drive.main.MainActivity;
 import io.github.ovso.drive.main.MainActivityModule;
 
@@ -12,6 +11,6 @@ import io.github.ovso.drive.main.MainActivityModule;
 
 @Module public abstract class ActivityBuilder {
 
-  @ContributesAndroidInjector(modules = { MainActivityModule.class, PhoneFragmentProvider.class })
+  @ContributesAndroidInjector(modules = { MainActivityModule.class })
   abstract MainActivity bindMainActivity();
 }

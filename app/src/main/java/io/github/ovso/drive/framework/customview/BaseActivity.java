@@ -5,25 +5,23 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 import io.github.ovso.drive.R;
 
 /**
  * Created by jaeho on 2017. 10. 19
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends DaggerAppCompatActivity {
   private Unbinder unbinder;
   protected @BindView(R.id.toolbar) Toolbar toolbar;
   protected @BindView(R.id.drawer_layout) DrawerLayout drawer;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    if (isDagger()) AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(getLayoutResId());
     unbinder = ButterKnife.bind(this);
@@ -44,5 +42,4 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   protected abstract int getLayoutResId();
 
-  protected abstract boolean isDagger();
 }

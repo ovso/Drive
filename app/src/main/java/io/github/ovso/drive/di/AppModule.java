@@ -9,7 +9,7 @@ import dagger.Provides;
  * Created by jaeho on 2017. 10. 16
  */
 @Module public class AppModule {
-  @Provides Context provideContext(Application application) {
+  @Provides Context providesContext(Application application) {
     return application;
   }
 }

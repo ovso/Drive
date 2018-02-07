@@ -6,7 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -15,9 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.fsn.cauly.CaulyAdView;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.model.Notices;
 import io.github.ovso.drive.R;
@@ -30,8 +26,7 @@ import io.github.ovso.drive.framework.customview.BottomNavigationViewBehavior;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity
-    implements MainPresenter.View, HasSupportFragmentInjector {
-
+    implements MainPresenter.View {
   @Inject CaulyAdView caulyAdView;
   @Inject MainPresenter presenter;
   @BindView(R.id.fragment_container) FrameLayout fragmentContainer;
@@ -107,12 +102,6 @@ public class MainActivity extends BaseActivity
 
   @Override public void onBackPressed() {
     presenter.onBackPressed(drawer.isDrawerOpen(GravityCompat.START));
-  }
-
-  @Inject DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
-
-  @Override public AndroidInjector<Fragment> supportFragmentInjector() {
-    return fragmentDispatchingAndroidInjector;
   }
 
   @Override public void showMessage(int resId) {

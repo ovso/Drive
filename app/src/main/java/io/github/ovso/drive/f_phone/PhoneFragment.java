@@ -38,6 +38,12 @@ public class PhoneFragment extends BaseFragment
   @Inject @Getter PhoneAdapterView adapterView;
   @Inject PhonePresenter presenter;
 
+  /*
+  @Inject public PhoneFragment() {
+
+  }
+  */
+
   @Override protected int getLayoutResID() {
     return R.layout.fragment_phone;
   }
