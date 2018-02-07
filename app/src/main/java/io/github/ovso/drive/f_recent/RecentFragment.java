@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 public class RecentFragment extends BaseFragment {
 
-  @Inject public RecentFragment() {
+  @DebugLog @Inject public RecentFragment() {
 
   }
 
@@ -23,12 +23,7 @@ public class RecentFragment extends BaseFragment {
   @Override protected void onActivityCreate(Bundle savedInstanceState) {
   }
 
-  public static RecentFragment newInstance() {
-    RecentFragment f = new RecentFragment();
-    return f;
-  }
-
-  @DebugLog @Override public void onDetach() {
+  @Override public void onDetach() {
     super.onDetach();
   }
 }

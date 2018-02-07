@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity implements MainPresenter.View {
   }
 
   @Override public void showRecentFragment() {
-    ActivityUtils.replaceFragment(getSupportFragmentManager(), RecentFragment.newInstance(),
+    ActivityUtils.replaceFragment(getSupportFragmentManager(), recentFragment,
         R.id.fragment_container);
   }
 
