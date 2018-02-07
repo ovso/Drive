@@ -1,7 +1,7 @@
-package io.github.ovso.drive.f_phone;
+package io.github.ovso.drive.main.f_phone;
 
 import android.support.annotation.StringRes;
-import io.github.ovso.drive.f_phone.model.Documents;
+import io.github.ovso.drive.main.f_phone.model.Documents;
 
 /**
  * Created by jaeho on 2017. 11. 27

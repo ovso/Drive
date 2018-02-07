@@ -1,4 +1,4 @@
-package io.github.ovso.drive.f_phone;
+package io.github.ovso.drive.main.f_phone;
 
 import android.Manifest;
 import android.location.Address;
@@ -7,7 +7,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.app.MyApplication;
-import io.github.ovso.drive.f_phone.model.Documents;
+import io.github.ovso.drive.main.f_phone.model.Documents;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

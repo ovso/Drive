@@ -1,4 +1,4 @@
-package io.github.ovso.drive.f_phone;
+package io.github.ovso.drive.main.f_phone;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -13,10 +13,10 @@ import butterknife.BindView;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.BuildConfig;
 import io.github.ovso.drive.R;
-import io.github.ovso.drive.f_phone.adapter.OnEndlessRecyclerScrollListener;
-import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
-import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
-import io.github.ovso.drive.f_phone.model.Documents;
+import io.github.ovso.drive.main.f_phone.adapter.OnEndlessRecyclerScrollListener;
+import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapter;
+import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapterView;
+import io.github.ovso.drive.main.f_phone.model.Documents;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.reactivex.disposables.CompositeDisposable;

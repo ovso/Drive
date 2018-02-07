@@ -1,9 +1,9 @@
-package io.github.ovso.drive.f_phone.adapter;
+package io.github.ovso.drive.main.f_phone.adapter;
 
 import android.view.View;
 import com.jakewharton.rxbinding2.view.RxView;
 import io.github.ovso.drive.R;
-import io.github.ovso.drive.f_phone.model.Documents;
+import io.github.ovso.drive.main.f_phone.model.Documents;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
 import io.github.ovso.drive.framework.adapter.BaseRecyclerAdapter;
 import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;

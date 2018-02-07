@@ -1,4 +1,4 @@
-package io.github.ovso.drive.f_recent;
+package io.github.ovso.drive.main.f_recent;
 
 import dagger.Module;
 import dagger.Provides;

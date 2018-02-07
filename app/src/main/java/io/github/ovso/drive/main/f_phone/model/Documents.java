@@ -1,4 +1,4 @@
-package io.github.ovso.drive.f_phone.model;
+package io.github.ovso.drive.main.f_phone.model;
 
 import lombok.Getter;
 import lombok.ToString;

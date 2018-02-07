@@ -1,4 +1,4 @@
-package io.github.ovso.drive.f_phone.adapter;
+package io.github.ovso.drive.main.f_phone.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

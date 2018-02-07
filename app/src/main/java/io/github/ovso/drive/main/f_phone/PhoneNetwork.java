@@ -1,7 +1,7 @@
-package io.github.ovso.drive.f_phone;
+package io.github.ovso.drive.main.f_phone;
 
 import hugo.weaving.DebugLog;
-import io.github.ovso.drive.f_phone.model.DResult;
+import io.github.ovso.drive.main.f_phone.model.DResult;
 import io.github.ovso.drive.framework.network.NetworkHelper;
 import io.reactivex.Single;
 

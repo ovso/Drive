@@ -1,15 +1,15 @@
-package io.github.ovso.drive.f_phone.di;
+package io.github.ovso.drive.main.f_phone.di;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import dagger.Module;
 import dagger.Provides;
-import io.github.ovso.drive.f_phone.PhoneFragment;
-import io.github.ovso.drive.f_phone.PhoneNetwork;
-import io.github.ovso.drive.f_phone.PhonePresenter;
-import io.github.ovso.drive.f_phone.PhonePresenterImpl;
-import io.github.ovso.drive.f_phone.adapter.OnEndlessRecyclerScrollListener;
-import io.github.ovso.drive.f_phone.adapter.PhoneAdapter;
-import io.github.ovso.drive.f_phone.adapter.PhoneAdapterView;
+import io.github.ovso.drive.main.f_phone.PhoneFragment;
+import io.github.ovso.drive.main.f_phone.PhoneNetwork;
+import io.github.ovso.drive.main.f_phone.PhonePresenter;
+import io.github.ovso.drive.main.f_phone.PhonePresenterImpl;
+import io.github.ovso.drive.main.f_phone.adapter.OnEndlessRecyclerScrollListener;
+import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapter;
+import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.framework.network.NetworkApi;
 import io.reactivex.disposables.CompositeDisposable;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;

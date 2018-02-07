@@ -1,6 +1,6 @@
 package io.github.ovso.drive.framework.network;
 
-import io.github.ovso.drive.f_phone.model.DResult;
+import io.github.ovso.drive.main.f_phone.model.DResult;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
