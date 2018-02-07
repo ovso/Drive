@@ -7,8 +7,10 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
 import io.github.ovso.drive.Security;
+import io.github.ovso.drive.di.FragmentScoped;
 import io.github.ovso.drive.f_phone.PhoneFragment;
 import io.github.ovso.drive.f_phone.di.PhoneFragmentModule;
+import io.github.ovso.drive.f_recent.RecentFragment;
 import io.github.ovso.drive.main.listener.OnSimpleAdViewListener;
 
 /**
@@ -16,9 +18,11 @@ import io.github.ovso.drive.main.listener.OnSimpleAdViewListener;
  */
 
 @Module public abstract class MainActivityModule {
-
-  @ContributesAndroidInjector(modules = PhoneFragmentModule.class)
+  @FragmentScoped @ContributesAndroidInjector(modules = PhoneFragmentModule.class)
   abstract PhoneFragment providePhoneFragmentFactory();
+
+  @FragmentScoped @ContributesAndroidInjector
+  abstract RecentFragment provideRecentFragmentFactory();
 
   @Provides static MainPresenter provideMainPresenter(MainActivity activity) {
     return new MainPresenterImpl(activity);

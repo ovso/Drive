@@ -52,10 +52,6 @@ public class PhoneFragment extends BaseFragment
     presenter.onActivityCreate();
   }
 
-  @Override protected boolean isDagger() {
-    return true;
-  }
-
   public static PhoneFragment newInstance() {
     PhoneFragment f = new PhoneFragment();
     return f;

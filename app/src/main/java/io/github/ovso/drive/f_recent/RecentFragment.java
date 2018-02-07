@@ -18,10 +18,6 @@ public class RecentFragment extends BaseFragment {
   @Override protected void onActivityCreate(Bundle savedInstanceState) {
   }
 
-  @Override protected boolean isDagger() {
-    return false;
-  }
-
   public static RecentFragment newInstance() {
     RecentFragment f = new RecentFragment();
     return f;
