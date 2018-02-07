@@ -35,7 +35,7 @@ import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
     return fragment.getAdapter();
   }
 
-  @Provides PhoneNetwork provideNetwork(PhoneFragment fragment) {
+  @Provides PhoneNetwork provideNetwork() {
     return new PhoneNetwork(NetworkApi.BASE_URL);
   }
 
