@@ -26,7 +26,6 @@ import lombok.Getter;
 /**
  * Created by jaeho on 2017. 12. 28
  */
-
 public class PhoneFragment extends BaseFragment
     implements PhonePresenter.View, OnRecyclerItemClickListener<Documents>,
     OnEndlessRecyclerScrollListener.OnLoadMoreListener {
@@ -38,11 +37,9 @@ public class PhoneFragment extends BaseFragment
   @Inject @Getter PhoneAdapterView adapterView;
   @Inject PhonePresenter presenter;
 
-  /*
   @Inject public PhoneFragment() {
 
   }
-  */
 
   @Override protected int getLayoutResID() {
     return R.layout.fragment_phone;

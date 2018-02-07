@@ -7,9 +7,10 @@ import android.content.pm.PackageManager;
 import com.squareup.leakcanary.LeakCanary;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
+import io.github.ovso.drive.BuildConfig;
 import io.github.ovso.drive.di.DaggerAppComponent;
-import io.github.ovso.drive.framework.AppLogger;
 import lombok.Getter;
+import timber.log.Timber;
 
 /**
  * Created by jaeho on 2017. 12. 28
@@ -24,7 +25,13 @@ public class MyApplication extends DaggerApplication {
     instance = this;
     initLeakCanary();
     this.DEBUG = isDebuggable(this);
-    AppLogger.init();
+    initTimber();
+  }
+
+  private void initTimber() {
+    if (BuildConfig.DEBUG) {
+      Timber.plant(new Timber.DebugTree());
+    }
   }
 
   @Override protected AndroidInjector<? extends DaggerApplication> applicationInjector() {

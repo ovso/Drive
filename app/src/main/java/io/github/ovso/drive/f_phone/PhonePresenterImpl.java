@@ -7,17 +7,11 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.app.MyApplication;
-import io.github.ovso.drive.f_phone.model.DResult;
 import io.github.ovso.drive.f_phone.model.Documents;
-import io.github.ovso.drive.framework.AppLogger;
 import io.github.ovso.drive.framework.adapter.BaseAdapterDataModel;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
@@ -78,7 +72,6 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
         .subscribe(addresses -> {
           if (addresses.size() > 0) {
             Address address = addresses.get(0);
-            AppLogger.i("address = " + address);
             query = getQuery(address.getLocality(), address.getThoroughfare());
             req(query);
           } else {
@@ -126,20 +119,7 @@ public class PhonePresenterImpl extends Exception implements PhonePresenter {
     compositeDisposable.add(locationProvider.getLastKnownLocation().subscribe(location -> {
       double lat = location.getLatitude();
       double lng = location.getLongitude();
-      AppLogger.d("lat = " + lat + ", lng = " + lng);
-      //
-      double[][] loc = new double[5][2];
-      loc[0][0] = 36.3021057;   //옥천군 옥천읍
-      loc[0][1] = 127.5681262;
-      loc[1][0] = 37.6841556;   //남양주시 화도읍
-      loc[1][1] = 127.303926;
-      loc[2][0] = 37.487338;    //명달로 26길 44
-      loc[2][1] = 127.0046589;
-      loc[3][0] = 36.3317856;   //대전광역시 중구 은행동
-      loc[3][1] = 127.41271923;
-      loc[4][0] = 35.1801988;   //부산광역시 송정
-      loc[4][1] = 129.189196;
-
+      Timber.d("lat = " + lat + ", lng = " + lng);
       reverseGeocodeObservable(lat, lng);
     }, throwable -> {
       view.hideLoading();

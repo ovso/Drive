@@ -26,12 +26,16 @@ import io.github.ovso.drive.framework.customview.BottomNavigationViewBehavior;
 import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity implements MainPresenter.View {
+
   @Inject CaulyAdView caulyAdView;
   @Inject MainPresenter presenter;
   @BindView(R.id.fragment_container) FrameLayout fragmentContainer;
   @BindView(R.id.bottom_navigation_view) BottomNavigationView bottomNavigationView;
   @BindView(R.id.navigation_view) NavigationView navigationView;
   @BindView(R.id.ad_container) ViewGroup adContainer;
+
+  //@Inject PhoneFragment phoneFragment;
+  @Inject RecentFragment recentFragment;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
