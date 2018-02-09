@@ -1,7 +1,6 @@
 package io.github.ovso.drive.main.f_recent;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import io.github.ovso.drive.R;
 import io.github.ovso.drive.framework.customview.BaseFragment;
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ public class RecentFragment extends BaseFragment implements RecentPresenter.View
 
   }
 
-  public static Fragment newInstance() {
+  public static RecentFragment newInstance() {
     return new RecentFragment();
   }
 }
