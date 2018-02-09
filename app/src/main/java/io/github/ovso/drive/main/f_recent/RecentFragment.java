@@ -13,10 +13,6 @@ import javax.inject.Inject;
 public class RecentFragment extends BaseFragment implements RecentPresenter.View {
   @Inject RecentPresenter presenter;
 
-  @Inject public RecentFragment() {
-
-  }
-
   @Override protected int getLayoutResID() {
     return R.layout.fragment_recent;
   }
