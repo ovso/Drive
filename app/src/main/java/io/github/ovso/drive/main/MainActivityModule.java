@@ -12,13 +12,14 @@ import io.github.ovso.drive.main.f_phone.PhoneFragmentModule;
 import io.github.ovso.drive.main.f_recent.RecentFragment;
 import io.github.ovso.drive.main.f_recent.RecentFragmentModule;
 import io.github.ovso.drive.main.listener.OnSimpleAdViewListener;
+import javax.inject.Singleton;
 
 /**
  * Created by jaeho on 2017. 10. 16
  */
 
 @Module public abstract class MainActivityModule {
-  @ContributesAndroidInjector(modules = PhoneFragmentModule.class)
+  @Singleton @ContributesAndroidInjector(modules = PhoneFragmentModule.class)
   abstract PhoneFragment providePhoneFragmentFactory();
 
   @ContributesAndroidInjector(modules = { RecentFragmentModule.class })

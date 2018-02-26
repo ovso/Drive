@@ -3,12 +3,15 @@ package io.github.ovso.drive.main.f_phone;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import dagger.Module;
 import dagger.Provides;
+import hugo.weaving.DebugLog;
 import io.github.ovso.drive.framework.network.NetworkApi;
 import io.github.ovso.drive.main.f_phone.adapter.OnEndlessRecyclerScrollListener;
 import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapter;
 import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapterView;
 import io.reactivex.disposables.CompositeDisposable;
+import javax.inject.Singleton;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
+import timber.log.Timber;
 
 /**
  * Created by jaeho on 2017. 10. 20
@@ -17,37 +20,43 @@ import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
 @Module public class PhoneFragmentModule {
 
   @Provides PhonePresenter providePhonePresenter(PhoneFragment fragment, PhoneNetwork network,
-      RxPermissions permissions, ReactiveLocationProvider locationProvider) {
-    return new PhonePresenterImpl(fragment, fragment.getAdapter(), network,
-        fragment.getCompositeDisposable(), permissions, locationProvider);
+      RxPermissions permissions, ReactiveLocationProvider locationProvider,
+      CompositeDisposable compositeDisposable, PhoneAdapter adapter) {
+    return new PhonePresenterImpl(fragment, adapter, network, compositeDisposable, permissions,
+        locationProvider);
   }
 
-  @Provides PhoneAdapter providePhoneAdapter(PhoneFragment fragment) {
+  @DebugLog @Singleton @Provides PhoneAdapter providePhoneAdapter(PhoneFragment fragment,
+      CompositeDisposable compositeDisposable) {
     return new PhoneAdapter().setOnRecyclerItemClickListener(fragment)
-        .setCompositeDisposable(fragment.getCompositeDisposable());
+        .setCompositeDisposable(compositeDisposable);
   }
 
-  @Provides PhoneAdapterView provideBaseAdapterView(PhoneFragment fragment) {
-    return fragment.getAdapter();
+  @DebugLog @Provides PhoneAdapterView provideBaseAdapterView(PhoneAdapter adapter) {
+
+    return adapter;
   }
 
-  @Provides PhoneNetwork provideNetwork() {
+  @Singleton @Provides PhoneNetwork provideNetwork() {
     return new PhoneNetwork(NetworkApi.BASE_URL);
   }
 
-  @Provides CompositeDisposable provideCompositeDisposable() {
-    return new CompositeDisposable();
+  @DebugLog @Singleton @Provides CompositeDisposable provideCompositeDisposable() {
+    final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    Timber.d("compositeDisposable = " + compositeDisposable);
+    return compositeDisposable;
   }
 
-  @Provides RxPermissions provideRxPermissions(PhoneFragment fragment) {
+  @Singleton @Provides RxPermissions provideRxPermissions(PhoneFragment fragment) {
     return new RxPermissions(fragment.getActivity());
   }
 
-  @Provides ReactiveLocationProvider provideReactiveLocationProvider(PhoneFragment fragment) {
+  @Singleton @Provides ReactiveLocationProvider provideReactiveLocationProvider(
+      PhoneFragment fragment) {
     return new ReactiveLocationProvider(fragment.getContext());
   }
 
-  @Provides OnEndlessRecyclerScrollListener provideEndlessRecyclerScrollListener(
+  @Singleton @Provides OnEndlessRecyclerScrollListener provideEndlessRecyclerScrollListener(
       PhoneFragment fragment) {
     OnEndlessRecyclerScrollListener listener = new OnEndlessRecyclerScrollListener();
     listener.setOnLoadMoreListener(fragment);

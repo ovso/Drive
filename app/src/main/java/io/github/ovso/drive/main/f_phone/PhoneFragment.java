@@ -13,15 +13,14 @@ import butterknife.BindView;
 import hugo.weaving.DebugLog;
 import io.github.ovso.drive.BuildConfig;
 import io.github.ovso.drive.R;
+import io.github.ovso.drive.framework.customview.BaseFragment;
+import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.github.ovso.drive.main.f_phone.adapter.OnEndlessRecyclerScrollListener;
 import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapter;
 import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapterView;
 import io.github.ovso.drive.main.f_phone.model.Documents;
-import io.github.ovso.drive.framework.customview.BaseFragment;
-import io.github.ovso.drive.framework.listener.OnRecyclerItemClickListener;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Inject;
-import lombok.Getter;
 
 /**
  * Created by jaeho on 2017. 12. 28
@@ -29,12 +28,12 @@ import lombok.Getter;
 public class PhoneFragment extends BaseFragment
     implements PhonePresenter.View, OnRecyclerItemClickListener<Documents>,
     OnEndlessRecyclerScrollListener.OnLoadMoreListener {
-  @Getter @BindView(R.id.recyclerview) RecyclerView recyclerView;
+  @BindView(R.id.recyclerview) RecyclerView recyclerView;
   @BindView(R.id.progress_bar) ProgressBar progressBar;
-  @Inject @Getter CompositeDisposable compositeDisposable;
+  @Inject CompositeDisposable compositeDisposable;
   @Inject OnEndlessRecyclerScrollListener onEndlessRecyclerScrollListener;
-  @Inject @Getter PhoneAdapter adapter;
-  @Inject @Getter PhoneAdapterView adapterView;
+  @Inject PhoneAdapter adapter;
+  @Inject PhoneAdapterView adapterView;
   @Inject PhonePresenter presenter;
 
   @Override protected int getLayoutResID() {
