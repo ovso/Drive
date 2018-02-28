@@ -7,8 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import io.github.ovso.drive.R;
 import javax.annotation.Nonnull;
 
-import static com.squareup.haha.guava.base.Joiner.checkNotNull;
-
 /**
  * Created by jaeho on 2018. 2. 6
  */
@@ -21,8 +19,6 @@ public class ActivityUtils {
    */
   public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
       @NonNull Fragment fragment, int frameId) {
-    checkNotNull(fragmentManager);
-    checkNotNull(fragment);
     FragmentTransaction transaction = fragmentManager.beginTransaction();
     transaction.add(frameId, fragment);
     transaction.commit();
