@@ -7,7 +7,7 @@ buildscript {
         application_id = 'io.github.ovso.drive'
         min_sdk_version = 22
         target_sdk_version = 27
-        version_code = 2
+        version_code = 3
 
         support_version = '27.0.2'
         play_service_version = '11.6.2'
