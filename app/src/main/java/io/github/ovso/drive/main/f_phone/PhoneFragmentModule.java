@@ -3,7 +3,6 @@ package io.github.ovso.drive.main.f_phone;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import dagger.Module;
 import dagger.Provides;
-import hugo.weaving.DebugLog;
 import io.github.ovso.drive.framework.network.NetworkApi;
 import io.github.ovso.drive.main.f_phone.adapter.OnEndlessRecyclerScrollListener;
 import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapter;
@@ -35,24 +34,24 @@ import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
     return adapter;
   }
 
-  @Singleton @Provides PhoneNetwork provideNetwork() {
+  @Provides @Singleton PhoneNetwork provideNetwork() {
     return new PhoneNetwork(NetworkApi.BASE_URL);
   }
 
-  @DebugLog @Singleton @Provides CompositeDisposable provideCompositeDisposable() {
+  @Provides @Singleton CompositeDisposable provideCompositeDisposable() {
     return new CompositeDisposable();
   }
 
-  @Singleton @Provides RxPermissions provideRxPermissions(PhoneFragment fragment) {
+  @Provides @Singleton RxPermissions provideRxPermissions(PhoneFragment fragment) {
     return new RxPermissions(fragment.getActivity());
   }
 
-  @Singleton @Provides ReactiveLocationProvider provideReactiveLocationProvider(
+  @Provides @Singleton ReactiveLocationProvider provideReactiveLocationProvider(
       PhoneFragment fragment) {
     return new ReactiveLocationProvider(fragment.getContext());
   }
 
-  @Singleton @Provides OnEndlessRecyclerScrollListener provideEndlessRecyclerScrollListener(
+  @Provides @Singleton OnEndlessRecyclerScrollListener provideEndlessRecyclerScrollListener(
       PhoneFragment fragment) {
     OnEndlessRecyclerScrollListener listener = new OnEndlessRecyclerScrollListener();
     listener.setOnLoadMoreListener(fragment);
