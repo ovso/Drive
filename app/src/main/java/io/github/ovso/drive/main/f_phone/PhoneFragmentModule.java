@@ -11,7 +11,6 @@ import io.github.ovso.drive.main.f_phone.adapter.PhoneAdapterView;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.inject.Singleton;
 import pl.charmas.android.reactivelocation2.ReactiveLocationProvider;
-import timber.log.Timber;
 
 /**
  * Created by jaeho on 2017. 10. 20
@@ -19,21 +18,20 @@ import timber.log.Timber;
 
 @Module public class PhoneFragmentModule {
 
-  @Provides PhonePresenter providePhonePresenter(PhoneFragment fragment, PhoneNetwork network,
-      RxPermissions permissions, ReactiveLocationProvider locationProvider,
+  @Provides @Singleton PhonePresenter providePhonePresenter(PhoneFragment fragment,
+      PhoneNetwork network, RxPermissions permissions, ReactiveLocationProvider locationProvider,
       CompositeDisposable compositeDisposable, PhoneAdapter adapter) {
     return new PhonePresenterImpl(fragment, adapter, network, compositeDisposable, permissions,
         locationProvider);
   }
 
-  @DebugLog @Singleton @Provides PhoneAdapter providePhoneAdapter(PhoneFragment fragment,
+  @Provides @Singleton PhoneAdapter providePhoneAdapter(PhoneFragment fragment,
       CompositeDisposable compositeDisposable) {
     return new PhoneAdapter().setOnRecyclerItemClickListener(fragment)
         .setCompositeDisposable(compositeDisposable);
   }
 
-  @DebugLog @Provides PhoneAdapterView provideBaseAdapterView(PhoneAdapter adapter) {
-
+  @Provides PhoneAdapterView provideBaseAdapterView(PhoneAdapter adapter) {
     return adapter;
   }
 
@@ -42,9 +40,7 @@ import timber.log.Timber;
   }
 
   @DebugLog @Singleton @Provides CompositeDisposable provideCompositeDisposable() {
-    final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    Timber.d("compositeDisposable = " + compositeDisposable);
-    return compositeDisposable;
+    return new CompositeDisposable();
   }
 
   @Singleton @Provides RxPermissions provideRxPermissions(PhoneFragment fragment) {
