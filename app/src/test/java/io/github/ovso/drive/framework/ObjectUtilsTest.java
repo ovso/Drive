@@ -6,16 +6,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by jaeho on 2018. 3. 8
  */
-
 public class ObjectUtilsTest {
+  @Before public void setUp() throws Exception {
+  }
+
+  @After public void tearDown() throws Exception {
+  }
+
   @Test public void stringValidator_CorrectReturnsTrue() {
     assertTrue(ObjectUtils.isEmpty(""));
   }
