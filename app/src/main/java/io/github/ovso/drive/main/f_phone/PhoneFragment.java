@@ -130,7 +130,4 @@ public class PhoneFragment extends BaseFragment
         .show();
   }
 
-  @DebugLog public void onRestart() {
-
-  }
 }

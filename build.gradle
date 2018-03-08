@@ -30,6 +30,9 @@ buildscript {
         okhttp3_version = '3.9.0'
         reactive_location_version = '2.1@aar'
         rxpermissions2_version = '0.9.4@aar'
+
+        junit_version = '4.12'
+        mockito_version = '1.10.19'
     }
 
     repositories {
