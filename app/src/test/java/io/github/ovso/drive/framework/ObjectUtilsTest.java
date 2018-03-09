@@ -22,41 +22,41 @@ public class ObjectUtilsTest {
   @After public void tearDown() throws Exception {
   }
 
-  @Test public void stringValidator_CorrectReturnsTrue() {
+  @Test public void stringValidator_CorrectReturnsTrue() throws Exception {
     assertTrue(ObjectUtils.isEmpty(""));
   }
 
-  @Test public void stringValidator_InvalidReturnsFalse() {
+  @Test public void stringValidator_InvalidReturnsFalse() throws Exception {
     assertFalse(ObjectUtils.isEmpty("!"));
   }
 
-  @Test public void listValidator_CorrectReturnsTrue() {
+  @Test public void listValidator_CorrectReturnsTrue() throws Exception {
     assertTrue(ObjectUtils.isEmpty(new ArrayList<String>()));
   }
 
-  @Test public void listValidator_InvalidReturnsFalse() {
+  @Test public void listValidator_InvalidReturnsFalse() throws Exception {
     List<String> items = new ArrayList<>();
     items.add("1");
     assertFalse(ObjectUtils.isEmpty(items));
   }
 
-  @Test public void mapValidator_CorrectReturnsTrue() {
+  @Test public void mapValidator_CorrectReturnsTrue() throws Exception {
     assertTrue(ObjectUtils.isEmpty(new HashMap<String, String>()));
   }
 
-  @Test public void mapValidator_InvalidReturnsFalse() {
+  @Test public void mapValidator_InvalidReturnsFalse() throws Exception {
     Map<String, String> map = new HashMap<>();
     map.put("1", "1");
     map.put("2", "2");
     assertFalse(ObjectUtils.isEmpty(map));
   }
 
-  @Test public void arrayValidator_CorrectReturnsTrue() {
+  @Test public void arrayValidator_CorrectReturnsTrue() throws Exception {
     Object[] objects = {};
     assertTrue(ObjectUtils.isEmpty(objects));
   }
 
-  @Test public void arrayValidator_InvalidReturnsFalse() {
+  @Test public void arrayValidator_InvalidReturnsFalse() throws Exception {
     Object[] objects = new Object[3];
     objects[0] = "1";
     objects[1] = new Date();
